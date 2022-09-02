@@ -17,9 +17,6 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "watch": [
-      "src"
-    ],
     "include": [
       "src/**/*"
     ],
