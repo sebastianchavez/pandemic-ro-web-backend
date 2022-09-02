@@ -12,7 +12,7 @@ import { UserAccount } from './user/entities/useraccount.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot(db),
-    // TypeOrmModule.forFeature([User, Account, UserAccount]),
+    TypeOrmModule.forFeature([User, Account, UserAccount]),
     UserModule,
     HealthModule
   ],
