@@ -1,7 +1,7 @@
 import { TypeOrmModuleOptions } from "@nestjs/typeorm"
-import { UserAccount } from "../user/entities/useraccount.entity"
-import { User } from "../user/entities/user.entity"
-import { Account } from "../user/entities/account.entity"
+import { UserAccount } from "./user/entities/useraccount.entity"
+import { User } from "./user/entities/user.entity"
+import { Account } from "./user/entities/account.entity"
 require('dotenv').config()
 const { DB_PORT, DB_USER, DB_PASS, DB_SCHEMA, DB_HOST } = process.env
 
