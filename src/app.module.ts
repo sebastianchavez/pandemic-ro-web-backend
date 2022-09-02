@@ -5,10 +5,14 @@ import { UserModule } from './user/user.module';
 import { HealthModule } from './health/health.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { db } from './db.config';
+import { User } from './user/entities/user.entity';
+import { Account } from './user/entities/account.entity';
+import { UserAccount } from './user/entities/useraccount.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(db),
+    // TypeOrmModule.forFeature([User, Account, UserAccount]),
     UserModule,
     HealthModule
   ],
