@@ -1,8 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { firstValueFrom, lastValueFrom } from 'rxjs';
-// import { QueryConversationDto } from 'src/conversation/dtos/query-conversation.dto';
-import { IRequestMessage } from 'src/interfaces/request-message.interface';
+import { IRequestMessage } from '../../interfaces/request-message.interface';
 import { config } from 'dotenv'
 config()
 

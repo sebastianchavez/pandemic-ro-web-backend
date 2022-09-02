@@ -2,7 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { firstValueFrom } from 'rxjs';
-import { IWelcomeEmail } from 'src/interfaces/welcome-email.interface';
+import { IWelcomeEmail } from '../../interfaces/welcome-email.interface';
 import { config } from 'dotenv'
 config()
 

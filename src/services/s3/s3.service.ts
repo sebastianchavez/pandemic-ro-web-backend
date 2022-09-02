@@ -2,7 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { firstValueFrom } from 'rxjs';
-import { IRequestDeleteObjectS3, IRequestS3 } from 'src/interfaces/request-s3.interface';
+import { IRequestDeleteObjectS3, IRequestS3 } from '../../interfaces/request-s3.interface';
 import { config } from 'dotenv'
 config()
 

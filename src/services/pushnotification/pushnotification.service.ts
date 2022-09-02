@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { firstValueFrom } from 'rxjs';
 import { config } from 'dotenv'
-import { IRequestPushnotification } from 'src/interfaces/request-pushnotification.interface';
+import { IRequestPushnotification } from '../../interfaces/request-pushnotification.interface';
 config()
 
 @Injectable()
