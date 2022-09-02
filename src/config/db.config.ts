@@ -9,10 +9,7 @@ export const db: TypeOrmModuleOptions = {
     username: DB_USER,
     password: DB_PASS,
     database: DB_SCHEMA,
-    entities: ["/home/ubuntu/pandemic-ro-web-backend/src/**/**/*.entity{.ts,.js}"],
-
-    // factories: ["dist/**/database/factories/**/*.js"],
-    // seeds: ["dist/**/database/seeds/**/*.js"],
+    entities: [],
     synchronize: true,
     autoLoadEntities: true,
 
