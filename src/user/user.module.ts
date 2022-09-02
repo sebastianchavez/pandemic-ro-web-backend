@@ -6,7 +6,7 @@ import { AuthMiddleware } from '../middlewares/auth';
 import { TokenService } from '../services/token/token.service';
 import { Account } from './entities/account.entity';
 import { User } from './entities/user.entity';
-import { UserAccount } from './entities/UserAccount.entity';
+import { UserAccount } from './entities/useraccount.entity';
 import { UserService } from './services/user/user.service';
 import { UserController } from './user.controller';
 

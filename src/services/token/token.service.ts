@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as moment from 'moment'
 import { config } from 'dotenv'
 import * as jwt from 'jwt-simple'
-import { User } from '../../user/entities/User.entity';
+import { User } from '../../user/entities/user.entity';
 config()
 
 const { SECRET_TOKEN } = process.env

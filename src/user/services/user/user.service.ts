@@ -6,7 +6,7 @@ import { HttpService } from '@nestjs/axios';
 import { firstValueFrom, lastValueFrom } from 'rxjs';
 import { User } from '../../entities/user.entity';
 import { Account } from '../../entities/account.entity';
-import { UserAccount } from '../../entities/UserAccount.entity';
+import { UserAccount } from '../../entities/useraccount.entity';
 import { TokenService } from '../../../services/token/token.service';
 import { RegisterDto } from '../../dtos/register.dto';
 import { USER_STATES } from '../../../config/states';
