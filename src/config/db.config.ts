@@ -9,8 +9,7 @@ export const db: TypeOrmModuleOptions = {
     username: DB_USER,
     password: DB_PASS,
     database: DB_SCHEMA,
-    entities: ["dist/**/*.entity.js"],
-    migrations: ["dist/**/migration/*.js"],
+    entities: [__dirname + "../**/*.entity.js"],
     synchronize: true,
     autoLoadEntities: true,
 
