@@ -14,11 +14,11 @@ export const db: TypeOrmModuleOptions = {
     username: DB_USER,
     password: DB_PASS,
     database: DB_SCHEMA,
-    entities: ['src/**/**/*.entity.ts'],
+    entities: ['src/**/**/*.entity.js'],
     synchronize: true,
     autoLoadEntities: true,
     extra: {
-        seeds: ['src/fixtures/seeds/**/*.seed.ts'],
-        factories: ['src/fixtures/factories/**/*.factory.ts'],
+        seeds: ['src/db/seeds/**/*.seed.js'],
+        factories: ['src/db/factories/**/*.factory.js'],
     }
 }
