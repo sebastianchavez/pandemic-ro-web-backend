@@ -17,8 +17,4 @@ export const db: TypeOrmModuleOptions = {
     entities: ['./**/**/*.entity.js'],
     synchronize: true,
     autoLoadEntities: true,
-    extra: {
-        seeds: ['src/db/seeds/**/*.seed.js'],
-        factories: ['src/db/factories/**/*.factory.js'],
-    }
 }
