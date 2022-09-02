@@ -1,18 +1,18 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LoginDto } from 'src/user/dtos/login.dto';
-import { RegisterDto } from 'src/user/dtos/register.dto';
-import { Account } from 'src/user/entities/account.entity';
-import { User } from 'src/user/entities/user.entity';
-import { UserAccount } from 'src/user/entities/UserAccount.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt-nodejs'
-import { USER_STATES } from 'src/config/states';
-import { TokenService } from 'src/services/token/token.service';
-import { RegisterAccountDto } from 'src/user/dtos/register-account.dto';
-import { IRequestRegisterAccount } from 'src/user/interfaces/request-register-account.interface';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom, lastValueFrom } from 'rxjs';
+import { User } from '../../entities/user.entity';
+import { Account } from '../../entities/account.entity';
+import { UserAccount } from '../../entities/UserAccount.entity';
+import { TokenService } from '../../../services/token/token.service';
+import { RegisterDto } from '../../dtos/register.dto';
+import { USER_STATES } from '../../../config/states';
+import { RegisterAccountDto } from '../../dtos/register-account.dto';
+import { IRequestRegisterAccount } from '../../interfaces/request-register-account.interface';
+import { LoginDto } from '../../dtos/login.dto';
 
 @Injectable()
 export class UserService {
