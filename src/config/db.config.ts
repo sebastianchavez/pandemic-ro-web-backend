@@ -14,11 +14,16 @@ export const db: TypeOrmModuleOptions = {
     password: DB_PASS,
     database: DB_SCHEMA,
     entities: [
-        // __dirname + '../**/*.entity{.ts,.js}',
+        join(__dirname, '../**/**/*entity{.ts,.js}')
     ],
-    // synchronize: true,
-    // autoLoadEntities: true,
-
+    autoLoadEntities: true,
+    migrationsRun: true,
+    migrations: [join(__dirname, '../migration/**/*{.ts,.js}')],
+    migrationsTableName: 'migrations_typeorm',
+    // Activar SOLO MANUALMENTE en DESARROLLO SI ES NECESARIO (DESACTIVAR EN PRODUCCION).
+    synchronize: false,
+    logging: true,
+    logger: 'file',
 }
 
 // import { DataSource } from 'typeorm';
