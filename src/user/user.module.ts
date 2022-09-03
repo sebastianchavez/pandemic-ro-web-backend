@@ -3,7 +3,6 @@ import { RequestMethod } from '@nestjs/common';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { db } from 'src/config/db.config';
 import { AuthMiddleware } from '../middlewares/auth';
 import { TokenService } from '../services/token/token.service';
 import { Account } from './entities/account.entity';
@@ -29,7 +28,7 @@ export class UserModule implements NestModule {
         consumer.apply(AuthMiddleware)
             .exclude(
                 { path: '/api/users/register', method: RequestMethod.POST },
-                { path: '/api/users/login', method: RequestMethod.PUT }
+                { path: '/api/users/login', method: RequestMethod.POST }
             )
             .forRoutes("/api/users/")
     }
