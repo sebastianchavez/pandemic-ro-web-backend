@@ -12,13 +12,15 @@ import { UserController } from './user.controller';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([User, Account, UserAccount]),
+        TypeOrmModule.forFeature([User]),
+        TypeOrmModule.forFeature([Account]),
+        TypeOrmModule.forFeature([UserAccount]),
         HttpModule,
         TerminusModule
     ],
     controllers: [UserController],
     providers: [UserService, TokenService],
-    exports: [UserService, TokenService, TypeOrmModule.forFeature([User, Account, UserAccount])]
+    exports: [UserService, TokenService]
 })
 export class UserModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
