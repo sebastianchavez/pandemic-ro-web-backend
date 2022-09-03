@@ -20,7 +20,7 @@ import { UserController } from './user.controller';
     ],
     controllers: [UserController],
     providers: [UserService, TokenService],
-    exports: [UserService, TokenService]
+    exports: [UserService, TokenService, TypeOrmModule]
 })
 export class UserModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
