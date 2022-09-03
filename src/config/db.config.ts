@@ -14,7 +14,7 @@ export const db: TypeOrmModuleOptions = {
     password: DB_PASS,
     database: DB_SCHEMA,
     entities: [
-        join(__dirname, '../**/**/*entity{.ts,.js}')
+        join(__dirname, './**/*entity{.ts,.js}')
     ],
     autoLoadEntities: true,
 
