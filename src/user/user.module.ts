@@ -17,7 +17,8 @@ import { UserController } from './user.controller';
         TerminusModule
     ],
     controllers: [UserController],
-    providers: [UserService, TokenService]
+    providers: [UserService, TokenService],
+    exports: [UserService, TokenService, TypeOrmModule.forFeature([User, Account, UserAccount])]
 })
 export class UserModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {

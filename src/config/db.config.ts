@@ -18,3 +18,27 @@ export const db: TypeOrmModuleOptions = {
     autoLoadEntities: true,
 
 }
+
+// import { DataSource } from 'typeorm';
+
+// export const databaseProviders = [
+//     {
+//         provide: 'DATA_SOURCE',
+//         useFactory: async () => {
+//             const dataSource = new DataSource({
+//                 type: 'mysql',
+//                 host: DB_HOST,
+//                 port: Number(DB_PORT),
+//                 username: DB_USER,
+//                 password: DB_PASS,
+//                 database: DB_SCHEMA,
+//                 entities: [
+//                     __dirname + '/../**/*.entity{.ts,.js}',
+//                 ],
+//                 synchronize: true,
+//             });
+
+//             return dataSource.initialize();
+//         },
+//     },
+// ];
