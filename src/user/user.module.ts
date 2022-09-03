@@ -1,4 +1,5 @@
 import { HttpModule } from '@nestjs/axios';
+import { RequestMethod } from '@nestjs/common';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -27,9 +28,9 @@ export class UserModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
         consumer.apply(AuthMiddleware)
             .exclude(
-            // { path: '/api/users/register', method: RequestMethod.POST },
-            // { path: '/api/users/login', method: RequestMethod.PUT }
-        )
+                { path: '/api/users/register', method: RequestMethod.POST },
+                { path: '/api/users/login', method: RequestMethod.PUT }
+            )
             .forRoutes("/api/users/")
     }
 
