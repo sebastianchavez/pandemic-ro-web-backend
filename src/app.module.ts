@@ -10,11 +10,11 @@ import { TYPEORM_CONFIG } from './config/constants';
 
 @Module({
   imports: [
-    TypeOrmModule.forRootAsync({
-      inject: [ConfigService],
-      useFactory: (config: ConfigService) =>
-        config.get<TypeOrmModuleOptions>(TYPEORM_CONFIG),
-    }),
+    // TypeOrmModule.forRootAsync({
+    //   inject: [ConfigService],
+    //   useFactory: (config: ConfigService) =>
+    //     config.get<TypeOrmModuleOptions>(TYPEORM_CONFIG),
+    // }),
     // TypeOrmModule.forRoot(db),
     UserModule,
     HealthModule

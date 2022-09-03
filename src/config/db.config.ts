@@ -17,13 +17,7 @@ export const db: TypeOrmModuleOptions = {
         join(__dirname, '../**/**/*entity{.ts,.js}')
     ],
     autoLoadEntities: true,
-    migrationsRun: true,
-    migrations: [join(__dirname, '../migration/**/*{.ts,.js}')],
-    migrationsTableName: 'migrations_typeorm',
-    // Activar SOLO MANUALMENTE en DESARROLLO SI ES NECESARIO (DESACTIVAR EN PRODUCCION).
-    synchronize: false,
-    logging: true,
-    logger: 'file',
+
 }
 
 // import { DataSource } from 'typeorm';

@@ -2,6 +2,7 @@ import { HttpModule } from '@nestjs/axios';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { db } from 'src/config/db.config';
 import { AuthMiddleware } from '../middlewares/auth';
 import { TokenService } from '../services/token/token.service';
 import { Account } from './entities/account.entity';
@@ -12,6 +13,7 @@ import { UserController } from './user.controller';
 
 @Module({
     imports: [
+        TypeOrmModule.forRoot(db),
         TypeOrmModule.forFeature([User]),
         TypeOrmModule.forFeature([Account]),
         TypeOrmModule.forFeature([UserAccount]),
