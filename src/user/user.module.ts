@@ -12,9 +12,9 @@ import { UserController } from './user.controller';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([User], 'dbConnection'),
-        TypeOrmModule.forFeature([Account], 'dbConnection'),
-        TypeOrmModule.forFeature([UserAccount], 'dbConnection'),
+        TypeOrmModule.forFeature([User]),
+        TypeOrmModule.forFeature([Account]),
+        TypeOrmModule.forFeature([UserAccount]),
         HttpModule,
         TerminusModule
     ],

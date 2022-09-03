@@ -15,7 +15,6 @@ export const db: TypeOrmModuleOptions = {
     entities: [
         __dirname + '../**/*.entity{.ts,.js}',
     ],
-    name: 'dbConnection',
     synchronize: true,
     autoLoadEntities: true,
 
