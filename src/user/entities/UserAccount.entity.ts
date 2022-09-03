@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToOn
 import { Account } from './account.entity';
 import { User } from './user.entity';
 
-@Entity()
+@Entity('user_account')
 export class UserAccount {
     @PrimaryGeneratedColumn('increment')
     idUserAccount: number;
