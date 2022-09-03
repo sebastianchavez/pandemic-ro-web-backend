@@ -65,7 +65,8 @@ export class UserService {
     async login(params: LoginDto) {
         const { email, password } = params
         try {
-            const userData = await this.userRepository.findOne({ select: { email: true, password: true, idUser: true, state: true }, where: { email } })
+            // select: { email: true, password: true, idUser: true, state: true }, where: { email } 
+            const userData = await this.userRepository.findOne({ email })
             if (userData) {
                 if (bcrypt.compareSync(password, userData.password)) {
                     if (userData.state == USER_STATES.ENABLED) {
@@ -100,7 +101,8 @@ export class UserService {
         const { user: { email, idUser } } = req
         // const url = `${this.urlCpanel}/api/accounts/get-account?email=${email}`
         // return lastValueFrom(this.httpService.get(url))
-        const userAccount = await this.userAccountRepository.find({ select: { idUser: true, idAccount: true, idUserAccount: true }, where: { idUser: idUser }, relations: { idAccount: true } })
+        // { select: { idUser: true, idAccount: true, idUserAccount: true }, where: { idUser: idUser }, relations: { idAccount: true } }
+        const userAccount = await this.userAccountRepository.find({ idUser })
         return userAccount
     }
 }
