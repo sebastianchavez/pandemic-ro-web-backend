@@ -13,7 +13,6 @@ import { UserController } from './user.controller';
 
 @Module({
     imports: [
-        TypeOrmModule.forRoot(db),
         TypeOrmModule.forFeature([User]),
         TypeOrmModule.forFeature([Account]),
         TypeOrmModule.forFeature([UserAccount]),
