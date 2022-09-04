@@ -66,7 +66,7 @@ export class UserService {
         const { email, password } = params
         try {
             // select: { email: true, password: true, idUser: true, state: true }, where: { email } 
-            const userData = await this.userRepository.findOne({ email })
+            const userData = await this.userRepository.findOne({ select: { email: true, password: true, idUser: true, state: true }, where: { email } })
             if (userData) {
                 if (bcrypt.compareSync(password, userData.password)) {
                     if (userData.state == USER_STATES.ENABLED) {
@@ -102,7 +102,7 @@ export class UserService {
         // const url = `${this.urlCpanel}/api/accounts/get-account?email=${email}`
         // return lastValueFrom(this.httpService.get(url))
         // { select: { idUser: true, idAccount: true, idUserAccount: true }, where: { idUser: idUser }, relations: { idAccount: true } }
-        const userAccount = await this.userAccountRepository.find({ idUser })
+        const userAccount = await this.userAccountRepository.find({ select: { idUser: true, idAccount: true, idUserAccount: true }, where: { idUser: idUser }, relations: { idAccount: true } })
         return userAccount
     }
 }
