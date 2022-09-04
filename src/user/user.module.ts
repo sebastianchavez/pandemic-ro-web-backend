@@ -3,11 +3,11 @@ import { RequestMethod } from '@nestjs/common';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Account } from 'src/user/entities/account.entity';
+import { User } from 'src/user/entities/user.entity';
+import { UserAccount } from 'src/user/entities/useraccount.entity';
 import { AuthMiddleware } from '../middlewares/auth';
 import { TokenService } from '../services/token/token.service';
-import { Account } from '@entities/account';
-import { User } from '@entities/user';
-import { UserAccount } from '@entities/useraccount';
 import { UserService } from './services/user/user.service';
 import { UserController } from './user.controller';
 

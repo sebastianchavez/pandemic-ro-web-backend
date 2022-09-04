@@ -1,6 +1,6 @@
+import { Account } from 'src/user/entities/account.entity';
+import { User } from 'src/user/entities/user.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn, ManyToOne } from 'typeorm';
-import { Account } from '@entities/account';
-import { User } from '@entities/user';
 
 @Entity('user_account')
 export class UserAccount {

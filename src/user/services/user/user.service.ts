@@ -4,15 +4,15 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt-nodejs'
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom, lastValueFrom } from 'rxjs';
-import { User } from '@entities/user';
-import { Account } from '@entities/account';
-import { UserAccount } from '@entities/useraccount';
 import { TokenService } from '../../../services/token/token.service';
 import { RegisterDto } from '../../dtos/register.dto';
 import { USER_STATES } from '../../../config/states';
 import { RegisterAccountDto } from '../../dtos/register-account.dto';
 import { IRequestRegisterAccount } from '../../interfaces/request-register-account.interface';
 import { LoginDto } from '../../dtos/login.dto';
+import { User } from 'src/user/entities/user.entity';
+import { Account } from 'src/user/entities/account.entity';
+import { UserAccount } from 'src/user/entities/useraccount.entity';
 
 @Injectable()
 export class UserService {
