@@ -4,9 +4,9 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt-nodejs'
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom, lastValueFrom } from 'rxjs';
-import { User } from '../../entities/user.entity';
-import { Account } from '../../entities/account.entity';
-import { UserAccount } from '../../entities/useraccount.entity';
+import { User } from '@entities/user';
+import { Account } from '@entities/account';
+import { UserAccount } from '@entities/useraccount';
 import { TokenService } from '../../../services/token/token.service';
 import { RegisterDto } from '../../dtos/register.dto';
 import { USER_STATES } from '../../../config/states';

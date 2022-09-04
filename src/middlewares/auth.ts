@@ -1,6 +1,5 @@
 import { Injectable, NestMiddleware, HttpStatus } from '@nestjs/common';
 import { NextFunction, Request, Response } from "express";
-import * as bcrypt from 'bcrypt-nodejs'
 import { TokenService } from '../services/token/token.service';
 require('dotenv').config()
 
