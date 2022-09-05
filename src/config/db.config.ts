@@ -13,7 +13,7 @@ export const db: TypeOrmModuleOptions = {
     database: DB_SCHEMA,
     entities: [],
     autoLoadEntities: true,
-
+    synchronize: true
 }
 
 // import { DataSource } from 'typeorm';
