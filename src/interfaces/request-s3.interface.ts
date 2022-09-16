@@ -11,3 +11,10 @@ export interface IRequestDeleteObjectS3 {
     nameImage: string;
     path: string;
 }
+
+export interface IRequestFileS3 {
+    appId: 'pandemic-ro';
+    name: string;
+    file: string;
+    path: string;
+}
