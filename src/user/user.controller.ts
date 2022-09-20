@@ -51,7 +51,7 @@ export class UserController {
     async gerInfoCPanel(@Res() res: Response) {
         try {
             const response = await this.userService.getInfoCpanel()
-            res.status(HttpStatus.OK).send(response.data)
+            res.status(HttpStatus.OK).send(response)
         } catch (error) {
             res.status(error.status).send({ error, message: error.message })
         }

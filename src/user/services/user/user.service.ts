@@ -92,9 +92,21 @@ export class UserService {
         }
     }
 
-    getInfoCpanel() {
+    async getInfoCpanel() {
         const url = `${this.urlCpanel}/api/accounts/status`
-        return firstValueFrom(this.httpService.get(url))
+        try {
+            const response = await firstValueFrom(this.httpService.get(url))
+            const { connectedUsers } = response.data
+            const totalUsers = await this.userRepository.count()
+            const totalAccounts = await this.accountRepository.count()
+            return {
+                connectedUsers,
+                totalUsers,
+                totalAccounts
+            }
+        } catch (error) {
+
+        }
     }
 
     async getInfoAccount(req: any) {
