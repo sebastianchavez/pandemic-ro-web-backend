@@ -29,8 +29,10 @@ export class UserController {
             await this.userService.register(body)
             res.status(HttpStatus.OK).send({ message: 'Usuario registrado con éxito' })
         } catch (error) {
-            if (error.code && error.code == 'ER_DUP_ENTRY') {
-                res.status(HttpStatus.BAD_REQUEST).send({ message: 'Ya existe usuario' })
+            if (error['code'] && error['code'] == 'ER_DUP_ENTRY') {
+                res.status(HttpStatus.BAD_REQUEST).send({ message: 'Ya existe un jugador con este email' })
+            } else if (error.response && error.response.data && error.response.data.response) {
+                res.status(HttpStatus.BAD_REQUEST).send({ message: error.response.data.response })
             } else {
                 res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error, message: error.message })
             }

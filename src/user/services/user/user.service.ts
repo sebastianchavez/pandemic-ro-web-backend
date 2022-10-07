@@ -32,40 +32,64 @@ export class UserService {
 
     }
 
-    register(params: RegisterDto) {
-        const user = new User()
-        user.email = params.email;
-        user.password = bcrypt.hashSync(params.password, bcrypt.genSaltSync(10));
-        user.state = USER_STATES.ENABLED;
-        return this.userRepository.insert(user)
+    async register(params: RegisterDto) {
+        try {
+
+            const url = `${this.urlCpanel}/api/accounts/get-account?userid=${params.user}`
+            const response = await firstValueFrom(this.httpService.get(url))
+            if(response.data.user){
+                throw new HttpException('Ya existe un jugador con este usuario', HttpStatus.BAD_REQUEST)
+            }
+
+            const user = new User()
+            user.email = params.email;
+            user.password = bcrypt.hashSync(params.password, bcrypt.genSaltSync(10));
+            user.state = USER_STATES.ENABLED;
+            const request: IRequestRegisterAccount = {
+                email: user.email,
+                last_ip:params.ip,
+                sex:params.genre,
+                user_pass: params.password,
+                userid: params.user,
+            }
+            await this.userRepository.insert(user)
+            return this.registerUserRo(request, user.idUser)
+        } catch (error) {
+            throw error            
+        }
     }
 
     async registerAccount(params: RegisterAccountDto, req: any) {
         const { user: { email, idUser } } = req
 
-        const url = `${this.urlCpanel}/api/accounts/register`
-
         const request: IRequestRegisterAccount = {
             ...params,
             email: email.toLowerCase()
         }
+        return this.registerUserRo(request, idUser)
+    }
 
-        const response = await firstValueFrom(this.httpService.post(url, request))
-        const account = new Account()
-        account.genre = params.sex;
-        account.ragnarokId = response.data.idUser;
-        account.user = params.userid;
-        await this.accountRepository.insert(account)
-        const userAccount = new UserAccount()
-        userAccount.idUser = idUser
-        userAccount.idAccount = account.idAccount;
-        return await this.userAccountRepository.insert(userAccount)
+    async registerUserRo(request: IRequestRegisterAccount, idUser: number){
+        try {
+            const url = `${this.urlCpanel}/api/accounts/register`
+            const response = await firstValueFrom(this.httpService.post(url, request))
+            const account = new Account()
+            account.genre = request.sex;
+            account.ragnarokId = response.data.idUser;
+            account.user = request.userid;
+            await this.accountRepository.insert(account)
+            const userAccount = new UserAccount()
+            userAccount.idUser = idUser
+            userAccount.idAccount = account.idAccount;
+            return await this.userAccountRepository.insert(userAccount)
+        } catch (error) {
+            throw error            
+        }
     }
 
     async login(params: LoginDto) {
         const { email, password } = params
         try {
-            // select: { email: true, password: true, idUser: true, state: true }, where: { email } 
             const userData = await this.userRepository.findOne({ select: { email: true, password: true, idUser: true, state: true }, where: { email } })
             if (userData) {
                 if (bcrypt.compareSync(password, userData.password)) {
