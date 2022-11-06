@@ -2,7 +2,7 @@ import { HttpModule } from '@nestjs/axios';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { S3Service } from 'src/services/s3/s3.service';
+import { S3Service } from '../common/services/s3/s3.service';
 import { ClientController } from './client.controller';
 import { ClientFile } from './entities/client-file.entity';
 import { File } from './entities/file.entity';

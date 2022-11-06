@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Post, Put, Req, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { LoginDto } from './dtos/login.dto';
 import { RegisterAccountDto } from './dtos/register-account.dto';
@@ -64,6 +64,15 @@ export class UserController {
         try {
             const response = await this.userService.getInfoAccount(req)
             res.status(HttpStatus.OK).send(response)
+        } catch (error) {
+            res.status(error.status).send({ error, message: error.message })
+        }
+    }
+
+    @Put('recovery-password')
+    async recoveryPassword(@Req() req: any, @Res() res: Response) {
+        try {
+            
         } catch (error) {
             res.status(error.status).send({ error, message: error.message })
         }

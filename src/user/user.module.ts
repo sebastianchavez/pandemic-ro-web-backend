@@ -3,11 +3,12 @@ import { RequestMethod } from '@nestjs/common';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { EmailService } from 'src/common/services/email/email.service';
 import { Account } from 'src/user/entities/account.entity';
 import { User } from 'src/user/entities/user.entity';
 import { UserAccount } from 'src/user/entities/useraccount.entity';
-import { AuthMiddleware } from '../middlewares/auth';
-import { TokenService } from '../services/token/token.service';
+import { AuthMiddleware } from '../common/middlewares/auth';
+import { TokenService } from '../common/services/token/token.service';
 import { UserService } from './services/user/user.service';
 import { UserController } from './user.controller';
 
@@ -20,8 +21,8 @@ import { UserController } from './user.controller';
         TerminusModule
     ],
     controllers: [UserController],
-    providers: [UserService, TokenService],
-    exports: [UserService, TokenService, TypeOrmModule, HttpModule]
+    providers: [UserService, TokenService, EmailService],
+    exports: [UserService, TokenService, TypeOrmModule, HttpModule, EmailService]
 })
 export class UserModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {

@@ -7,8 +7,8 @@ import { ClientFile } from 'src/client/entities/client-file.entity';
 import { File } from 'src/client/entities/file.entity';
 import { RoClient } from 'src/client/entities/roclient.entity';
 import { Update } from 'src/client/entities/update.entity';
-import { IRequestFileS3 } from 'src/interfaces/request-s3.interface';
-import { S3Service } from 'src/services/s3/s3.service';
+import { IRequestFileS3 } from 'src/common/interfaces/request-s3.interface';
+import { S3Service } from '../../../common/services/s3/s3.service';
 import { Repository } from 'typeorm';
 
 @Injectable()

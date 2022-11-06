@@ -4,15 +4,17 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt-nodejs'
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom, lastValueFrom } from 'rxjs';
-import { TokenService } from '../../../services/token/token.service';
+import { TokenService } from '../../../common/services/token/token.service';
 import { RegisterDto } from '../../dtos/register.dto';
-import { USER_STATES } from '../../../config/states';
+import { USER_STATES } from '../../../common/config/states';
 import { RegisterAccountDto } from '../../dtos/register-account.dto';
 import { IRequestRegisterAccount } from '../../interfaces/request-register-account.interface';
 import { LoginDto } from '../../dtos/login.dto';
 import { User } from 'src/user/entities/user.entity';
 import { Account } from 'src/user/entities/account.entity';
 import { UserAccount } from 'src/user/entities/useraccount.entity';
+import { generatePassword } from 'src/common/utils/helpers';
+import { EmailService } from 'src/common/services/email/email.service';
 
 @Injectable()
 export class UserService {
@@ -27,7 +29,8 @@ export class UserService {
         @InjectRepository(UserAccount)
         private userAccountRepository: Repository<UserAccount>,
         private tokenService: TokenService,
-        private httpService: HttpService
+        private httpService: HttpService,
+        private emailService: EmailService
     ) {
 
     }
@@ -138,7 +141,23 @@ export class UserService {
         // const url = `${this.urlCpanel}/api/accounts/get-account?email=${email}`
         // return lastValueFrom(this.httpService.get(url))
         // { select: { idUser: true, idAccount: true, idUserAccount: true }, where: { idUser: idUser }, relations: { idAccount: true } }
-        const userAccount = await this.userAccountRepository.find({ select: { idUser: true, idAccount: true, idUserAccount: true }, where: { idUser: idUser }, relations: { idAccount: true } })
-        return userAccount
+        return await this.userAccountRepository.find({ select: { idUser: true, idAccount: true, idUserAccount: true }, where: { idUser: idUser }, relations: { idAccount: true } })
+    }
+
+    async recoveryPassword(req: any){
+        const { user: { email, idUser } } = req
+        try {
+            const userDb = this.userRepository.findOne({where: {idUser}})
+            if(userDb){
+                const newPassword = generatePassword()
+                this.userRepository.update({idUser}, {password: bcrypt.hashSync(newPassword, bcrypt.genSaltSync(10))})
+                this.emailService.sendEmailWelcomeUser
+                
+            } else {
+                throw new HttpException('Usuario inválido', HttpStatus.BAD_REQUEST)
+            }
+        } catch (error) {
+            throw error
+        }
     }
 }
