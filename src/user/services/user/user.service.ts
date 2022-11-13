@@ -2,8 +2,6 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt-nodejs'
-import { HttpService } from '@nestjs/axios';
-import { firstValueFrom, lastValueFrom } from 'rxjs';
 import { TokenService } from '../../../common/services/token/token.service';
 import { RegisterDto } from '../../dtos/register.dto';
 import { USER_STATES } from '../../../common/config/states';
@@ -15,11 +13,11 @@ import { Account } from 'src/user/entities/account.entity';
 import { UserAccount } from 'src/user/entities/useraccount.entity';
 import { generatePassword } from 'src/common/utils/helpers';
 import { EmailService } from 'src/common/services/email/email.service';
+import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
+import { IRequestRegisterLogin } from 'src/common/interfaces/request-register-login.interface';
 
 @Injectable()
 export class UserService {
-
-    urlCpanel: string = process.env.URL_CPANEL
 
     constructor(
         @InjectRepository(User)
@@ -29,8 +27,8 @@ export class UserService {
         @InjectRepository(UserAccount)
         private userAccountRepository: Repository<UserAccount>,
         private tokenService: TokenService,
-        private httpService: HttpService,
-        private emailService: EmailService
+        private emailService: EmailService,
+        private cpanelService: CpanelService
     ) {
 
     }
@@ -38,9 +36,9 @@ export class UserService {
     async register(params: RegisterDto) {
         try {
 
-            const url = `${this.urlCpanel}/api/accounts/get-account?userid=${params.user}`
-            const response = await firstValueFrom(this.httpService.get(url))
-            if(response.data.user){
+            const data = await this.cpanelService.getLogin(params.user)
+
+            if(data.user){
                 throw new HttpException('Ya existe un jugador con este usuario', HttpStatus.BAD_REQUEST)
             }
 
@@ -72,13 +70,12 @@ export class UserService {
         return this.registerUserRo(request, idUser)
     }
 
-    async registerUserRo(request: IRequestRegisterAccount, idUser: number){
+    async registerUserRo(request: IRequestRegisterLogin, idUser: number){
         try {
-            const url = `${this.urlCpanel}/api/accounts/register`
-            const response = await firstValueFrom(this.httpService.post(url, request))
+            const { idUser } = await this.cpanelService.registerLogin(request)
             const account = new Account()
             account.genre = request.sex;
-            account.ragnarokId = response.data.idUser;
+            account.ragnarokId = idUser;
             account.user = request.userid;
             await this.accountRepository.insert(account)
             const userAccount = new UserAccount()
@@ -120,10 +117,9 @@ export class UserService {
     }
 
     async getInfoCpanel() {
-        const url = `${this.urlCpanel}/api/accounts/status`
         try {
-            const response = await firstValueFrom(this.httpService.get(url))
-            const { connectedUsers } = response.data
+            const response = await this.cpanelService.getInfoCpanel()
+            const { connectedUsers } = response
             const totalUsers = await this.userRepository.count()
             const totalAccounts = await this.accountRepository.count()
             return {

@@ -9,6 +9,9 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt-nodejs'
 import { RoleMenu } from 'src/admin/entities/rolemenu.entity';
 import { TokenService } from 'src/common/services/token/token.service';
+import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
+import { IQueryGetLogins } from 'src/common/interfaces/query-get-logins.interface';
+import { QueryGetLoginsDto } from 'src/admin/dtos/query-get-logins.dto';
 
 @Injectable()
 export class AdminService {
@@ -22,7 +25,7 @@ export class AdminService {
         private menuRepository: Repository<Menu>,
         @InjectRepository(RoleMenu)
         private roleMenuRepository: Repository<RoleMenu>,
-        private tokenService: TokenService
+        private tokenService: TokenService,
     ){}
 
     async register(body: RegisterAdminDto){
@@ -71,4 +74,5 @@ export class AdminService {
             throw error
         }
     }
+
 }
