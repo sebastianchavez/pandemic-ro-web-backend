@@ -5,6 +5,7 @@ import { IQueryGetChars } from 'src/common/interfaces/query-get-chars.interface'
 import { IQueryGetLogin } from 'src/common/interfaces/query-get-login.interface';
 import { IQueryGetLogins } from 'src/common/interfaces/query-get-logins.interface';
 import { IRequestRegisterLogin } from 'src/common/interfaces/request-register-login.interface';
+import { IRequestUpdateLockUser } from 'src/common/interfaces/request-update-lock-user.interface';
 
 @Injectable()
 export class CpanelService {
@@ -49,8 +50,10 @@ export class CpanelService {
         try {
             const url = `${this.urlCpanel}/api/login/register`
             const response = await firstValueFrom(this.httpService.post(url, request))
+            console.log('response CP:', response)
             return response.data
         } catch (error) {
+            console.log('error CP:', error)
             throw error
         }
     }
@@ -80,6 +83,18 @@ export class CpanelService {
             const response = await firstValueFrom(this.httpService.get(url))
             return response.data
         } catch (error) {
+            throw error
+        }
+    }
+
+    async updateLockUser(request: IRequestUpdateLockUser){
+        try {
+            const url = `${this.urlCpanel}/api/lock/update-lock-user`
+            console.log('REQUEST:', request)
+            const response = await firstValueFrom(this.httpService.put(url, request))
+            return response.data
+        } catch (error) {
+            console.log('error:', request)
             throw error
         }
     }

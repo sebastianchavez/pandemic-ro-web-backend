@@ -10,6 +10,7 @@ import { Menu } from './entities/menu.entity';
 import { RoleMenu } from './entities/rolemenu.entity';
 import { AdminService } from './services/admin/admin.service';
 import { RagnarokCharService } from './services/ragnarok-char/ragnarok-char.service';
+import { RagnarokLockService } from './services/ragnarok-lock/ragnarok-lock.service';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { RagnarokCharService } from './services/ragnarok-char/ragnarok-char.serv
     HttpModule
   ],
   controllers: [AdminController],
-  providers: [AdminService, TokenService, CpanelService, RagnarokCharService],
+  providers: [AdminService, TokenService, CpanelService, RagnarokCharService, RagnarokLockService],
   exports: [TokenService, CpanelService]
 })
 export class AdminModule {}

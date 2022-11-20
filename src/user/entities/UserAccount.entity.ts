@@ -9,11 +9,11 @@ export class UserAccount {
 
     @ManyToOne(type => User, u => u.idUser)
     @JoinColumn({ name: 'idUser' })
-    idUser: number;
+    idUser?: number;
 
 
     @ManyToOne(type => Account, a => a.idAccount)
     @JoinColumn({ name: 'idAccount' })
-    idAccount: number;
+    idAccount?: number;
 
 }

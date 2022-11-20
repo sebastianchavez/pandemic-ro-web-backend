@@ -72,10 +72,10 @@ export class UserService {
 
     async registerUserRo(request: IRequestRegisterLogin, idUser: number){
         try {
-            const { idUser } = await this.cpanelService.registerLogin(request)
+            const responseCpanel = await this.cpanelService.registerLogin(request)
             const account = new Account()
             account.genre = request.sex;
-            account.ragnarokId = idUser;
+            account.ragnarokId = responseCpanel.idUser;
             account.user = request.userid;
             await this.accountRepository.insert(account)
             const userAccount = new UserAccount()
