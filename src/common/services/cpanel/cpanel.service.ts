@@ -50,10 +50,8 @@ export class CpanelService {
         try {
             const url = `${this.urlCpanel}/api/login/register`
             const response = await firstValueFrom(this.httpService.post(url, request))
-            console.log('response CP:', response)
             return response.data
         } catch (error) {
-            console.log('error CP:', error)
             throw error
         }
     }
@@ -90,7 +88,6 @@ export class CpanelService {
     async updateLockUser(request: IRequestUpdateLockUser){
         try {
             const url = `${this.urlCpanel}/api/lock/update-lock-user`
-            console.log('REQUEST:', request)
             const response = await firstValueFrom(this.httpService.put(url, request))
             return response.data
         } catch (error) {

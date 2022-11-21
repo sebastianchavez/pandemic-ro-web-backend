@@ -16,7 +16,7 @@ export class RagnarokCharService {
             const query: IQueryGetChars = {
                 ...params
             }
-            const response = this.cpanelService.getChars(query)
+            const response = await this.cpanelService.getChars(query)
             return response
         } catch (error) {
             throw error

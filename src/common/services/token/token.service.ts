@@ -38,7 +38,7 @@ export class TokenService {
     }
 
     decodeToken(token) {
-        const decode = new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
             try {
                 const payload = jwt.decode(token, SECRET_TOKEN)
                 if (payload.exp <= moment().unix()) {
@@ -55,6 +55,6 @@ export class TokenService {
                 })
             }
         })
-        return decode
+        
     }
 }

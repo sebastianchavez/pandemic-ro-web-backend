@@ -74,4 +74,12 @@ export class AdminService {
             throw error
         }
     }
+
+    async getAdminById(idAdmin: number){
+        try {
+            return this.adminRepository.findOne({where: {idAdmin, isAvailable: true}})
+        } catch (error) {
+            throw error
+        }
+    }
 }

@@ -54,7 +54,6 @@ export class AdminController {
             const response = await this.ragnarokLockService.lockUser(body)
             return res.status(HttpStatus.OK).send(response)
         } catch (error) {
-            console.log('ERROR:', error)
             throw error
         }
     }
