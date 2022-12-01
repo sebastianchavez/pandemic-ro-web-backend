@@ -68,7 +68,7 @@ export class AdminService {
                     throw new HttpException('Contraseña incorrecta', HttpStatus.BAD_REQUEST)
                 }
             } else {
-                throw new HttpException('Ya existe usuario', HttpStatus.BAD_REQUEST)
+                throw new HttpException('No existe usuario', HttpStatus.BAD_REQUEST)
             }
         } catch (error) {
             throw error
