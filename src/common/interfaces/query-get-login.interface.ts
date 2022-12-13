@@ -1,4 +1,4 @@
 export interface IQueryGetLogin {
-    email?: string;
-    userid?: string;
+  email?: string;
+  userid?: string;
 }

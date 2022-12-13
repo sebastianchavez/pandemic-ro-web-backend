@@ -5,21 +5,17 @@ import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
 
 @Injectable()
 export class RagnarokCharService {
+  constructor(private cpanelService: CpanelService) {}
 
-    constructor(
-        private cpanelService: CpanelService
-
-    ){}
-
-    async getChars(params: QueryGetCharsDto){
-        try {
-            const query: IQueryGetChars = {
-                ...params
-            }
-            const response = await this.cpanelService.getChars(query)
-            return response
-        } catch (error) {
-            throw error
-        }
+  async getChars(params: QueryGetCharsDto) {
+    try {
+      const query: IQueryGetChars = {
+        ...params,
+      };
+      const response = await this.cpanelService.getChars(query);
+      return response;
+    } catch (error) {
+      throw error;
     }
+  }
 }

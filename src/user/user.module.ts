@@ -14,26 +14,34 @@ import { UserService } from './services/user/user.service';
 import { UserController } from './user.controller';
 
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([User]),
-        TypeOrmModule.forFeature([Account]),
-        TypeOrmModule.forFeature([UserAccount]),
-        HttpModule,
-        TerminusModule
-    ],
-    controllers: [UserController],
-    providers: [UserService, TokenService, EmailService, CpanelService],
-    exports: [UserService, TokenService, TypeOrmModule, HttpModule, EmailService, CpanelService]
+  imports: [
+    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([Account]),
+    TypeOrmModule.forFeature([UserAccount]),
+    HttpModule,
+    TerminusModule,
+  ],
+  controllers: [UserController],
+  providers: [UserService, TokenService, EmailService, CpanelService],
+  exports: [
+    UserService,
+    TokenService,
+    TypeOrmModule,
+    HttpModule,
+    EmailService,
+    CpanelService,
+  ],
 })
 export class UserModule implements NestModule {
-    configure(consumer: MiddlewareConsumer) {
-        consumer.apply(AuthMiddleware)
-            .exclude(
-                { path: '/api/users/register', method: RequestMethod.POST },
-                { path: '/api/users/login', method: RequestMethod.POST },
-                { path: '/api/users/get-info', method: RequestMethod.GET },
-            )
-            .forRoutes("/api/users/")
-    }
-
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthMiddleware)
+      .exclude(
+        { path: '/api/users/register', method: RequestMethod.POST },
+        { path: '/api/users/login', method: RequestMethod.POST },
+        { path: '/api/users/get-info', method: RequestMethod.GET },
+        { path: '/api/users/ip', method: RequestMethod.GET },
+      )
+      .forRoutes('/api/users/');
+  }
 }

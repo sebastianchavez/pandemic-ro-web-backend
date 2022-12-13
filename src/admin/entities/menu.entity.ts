@@ -1,13 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('menu')
 export class Menu {
-    @PrimaryGeneratedColumn('increment')
-    idMenu: number;
+  @PrimaryGeneratedColumn('increment')
+  idMenu: number;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column()
-    route: string;
+  @Column()
+  route: string;
 }

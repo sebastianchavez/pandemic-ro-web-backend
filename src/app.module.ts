@@ -7,6 +7,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { db } from './common/config/db.config';
 import { ClientModule } from './client/client.module';
 import { AdminModule } from './admin/admin.module';
+import { ProcessLockModule } from './process-lock/process-lock.module';
 
 @Module({
   imports: [
@@ -14,9 +15,10 @@ import { AdminModule } from './admin/admin.module';
     UserModule,
     HealthModule,
     ClientModule,
-    AdminModule
+    AdminModule,
+    ProcessLockModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,16 +1,15 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class RegisterAdminDto{
+export class RegisterAdminDto {
+  @IsEmail()
+  @IsNotEmpty()
+  readonly email: string;
 
-    @IsEmail()
-    @IsNotEmpty()
-    readonly email: string;
+  @IsString()
+  @IsNotEmpty()
+  readonly password: string;
 
-    @IsString()
-    @IsNotEmpty()
-    readonly password: string;
-
-    @IsNumber()
-    @IsNotEmpty()
-    readonly idAdminRole: number;
+  @IsNumber()
+  @IsNotEmpty()
+  readonly idAdminRole: number;
 }

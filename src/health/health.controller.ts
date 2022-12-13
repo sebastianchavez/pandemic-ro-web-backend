@@ -3,20 +3,16 @@ import { Response } from 'express';
 
 @Controller('health')
 export class HealthController {
+  constructor() {}
 
-    constructor(
-    ) { }
-
-    @Get('status')
-    async checkStatusServer(@Res() res: Response) {
-        try {
-            res.send({})
-        } catch (error) {
-            res.send({ error })
-        }
+  @Get('status')
+  async checkStatusServer(@Res() res: Response) {
+    try {
+      res.send({});
+    } catch (error) {
+      res.send({ error });
     }
+  }
 
-    checkDb() {
-
-    }
+  checkDb() {}
 }

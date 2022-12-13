@@ -1,23 +1,29 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class QueryGetLoginsDto {
-    @IsNumber()
-    @IsNotEmpty()
-    readonly page: number;
-    
-    @IsNumber()
-    @IsNotEmpty()
-    readonly limit: number;
+  @IsNumber()
+  @IsNotEmpty()
+  readonly page: number;
 
-    @IsString()
-    @IsOptional()
-    readonly name?: string;
+  @IsNumber()
+  @IsNotEmpty()
+  readonly limit: number;
 
-    @IsEmail()
-    @IsOptional()
-    readonly email?: string;
+  @IsString()
+  @IsOptional()
+  readonly name?: string;
 
-    @IsString()
-    @IsOptional()
-    readonly ip?: string;
+  @IsEmail()
+  @IsOptional()
+  readonly email?: string;
+
+  @IsString()
+  @IsOptional()
+  readonly ip?: string;
 }

@@ -1,19 +1,23 @@
-
-import { IsString, IsNotEmpty, IsBase64, IsArray, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsBase64,
+  IsArray,
+  IsOptional,
+} from 'class-validator';
 
 export class NewVersionDto {
+  @IsString()
+  @IsNotEmpty()
+  readonly version: string;
 
-    @IsString()
-    @IsNotEmpty()
-    readonly version: string;
+  @IsString()
+  @IsNotEmpty()
+  readonly description: string;
 
-    @IsString()
-    @IsNotEmpty()
-    readonly description: string;
+  @IsNotEmpty()
+  readonly files: any;
 
-    @IsNotEmpty()
-    readonly files: any;
-
-    @IsOptional()
-    readonly updates: any;
+  @IsOptional()
+  readonly updates: any;
 }

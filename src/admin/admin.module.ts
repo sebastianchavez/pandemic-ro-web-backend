@@ -1,5 +1,10 @@
 import { HttpModule } from '@nestjs/axios';
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdminAuthMiddleware } from 'src/common/middlewares/admin-auth';
 import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
@@ -19,20 +24,26 @@ import { RagnarokLockService } from './services/ragnarok-lock/ragnarok-lock.serv
     TypeOrmModule.forFeature([AdminRole]),
     TypeOrmModule.forFeature([Menu]),
     TypeOrmModule.forFeature([RoleMenu]),
-    HttpModule
+    HttpModule,
   ],
   controllers: [AdminController],
-  providers: [AdminService, TokenService, CpanelService, RagnarokCharService, RagnarokLockService],
-  exports: [TokenService, CpanelService]
+  providers: [
+    AdminService,
+    TokenService,
+    CpanelService,
+    RagnarokCharService,
+    RagnarokLockService,
+  ],
+  exports: [TokenService, CpanelService],
 })
 export class AdminModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-      consumer.apply(AdminAuthMiddleware)
-          .exclude(
-              { path: '/api/admins/register', method: RequestMethod.POST },
-              { path: '/api/admins/login', method: RequestMethod.POST },
-          )
-          .forRoutes("/api/admins/")
+    consumer
+      .apply(AdminAuthMiddleware)
+      .exclude(
+        { path: '/api/admins/register', method: RequestMethod.POST },
+        { path: '/api/admins/login', method: RequestMethod.POST },
+      )
+      .forRoutes('/api/admins/');
   }
-
 }

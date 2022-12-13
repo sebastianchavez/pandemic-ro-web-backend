@@ -17,11 +17,10 @@ import { ClientService } from './services/client/client.service';
     TypeOrmModule.forFeature([ClientFile]),
     TypeOrmModule.forFeature([File]),
     HttpModule,
-    TerminusModule
+    TerminusModule,
   ],
   controllers: [ClientController],
   providers: [ClientService, S3Service],
-  exports: [ClientService, TypeOrmModule, S3Service, HttpModule]
+  exports: [ClientService, TypeOrmModule, S3Service, HttpModule],
 })
-export class ClientModule {
-}
+export class ClientModule {}

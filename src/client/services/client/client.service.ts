@@ -13,102 +13,119 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class ClientService {
+  constructor(
+    @InjectRepository(RoClient)
+    private roClientRepository: Repository<RoClient>,
+    @InjectRepository(File)
+    private fileRepository: Repository<File>,
+    @InjectRepository(ClientFile)
+    private clientFileRepository: Repository<ClientFile>,
+    @InjectRepository(Update)
+    private updateRepository: Repository<Update>,
+    private s3Service: S3Service,
+  ) {}
 
-    constructor(
-        @InjectRepository(RoClient)
-        private roClientRepository: Repository<RoClient>,
-        @InjectRepository(File)
-        private fileRepository: Repository<File>,
-        @InjectRepository(ClientFile)
-        private clientFileRepository: Repository<ClientFile>,
-        @InjectRepository(Update)
-        private updateRepository: Repository<Update>,
-        private s3Service: S3Service
-    ) { }
-
-    async updateFile(body: UpdateFileDto) {
-        try {
-            const requestFile: IRequestFileS3 = {
-                appId: 'pandemic-ro',
-                file: body.file,
-                name: body.name,
-                path: `client-updates/${body.version}/`
-            }
-            const response = await this.s3Service.sendS3File(requestFile)
-            const { data } = response
-            return data
-        } catch (error) {
-            throw error
-        }
+  async updateFile(body: UpdateFileDto) {
+    try {
+      const requestFile: IRequestFileS3 = {
+        appId: 'pandemic-ro',
+        file: body.file,
+        name: body.name,
+        path: `client-updates/${body.version}/`,
+      };
+      const response = await this.s3Service.sendS3File(requestFile);
+      const { data } = response;
+      return data;
+    } catch (error) {
+      throw error;
     }
+  }
 
-    async saveNewVersion(body: NewVersionDto) {
-        try {
-            const newClient = new RoClient()
-            newClient.version = body.version;
-            newClient.description = body.description;
-            await this.roClientRepository.insert(newClient)
+  async saveNewVersion(body: NewVersionDto) {
+    try {
+      const newClient = new RoClient();
+      newClient.version = body.version;
+      newClient.description = body.description;
+      await this.roClientRepository.insert(newClient);
 
-            for await (let u of body.updates) {
-                let newUpdate = new Update()
-                newUpdate.idRoClient = newClient.idRoClient;
-                newUpdate.description = u.description;
-                await this.updateRepository.insert(newUpdate)
-            }
+      for await (const u of body.updates) {
+        const newUpdate = new Update();
+        newUpdate.idRoClient = newClient.idRoClient;
+        newUpdate.description = u.description;
+        await this.updateRepository.insert(newUpdate);
+      }
 
-            for await (let f of body.files) {
-                let newFile = new File()
-                newFile.name = f.name;
-                newFile.url = f.url;
-                await this.fileRepository.insert(newFile)
+      for await (const f of body.files) {
+        const newFile = new File();
+        newFile.name = f.name;
+        newFile.url = f.url;
+        await this.fileRepository.insert(newFile);
 
-                let newClientFile = new ClientFile()
-                newClientFile.idRoClient = newClient.idRoClient;
-                newClientFile.idFile = newFile.idFile;
-                await this.clientFileRepository.insert(newClientFile)
-            }
+        const newClientFile = new ClientFile();
+        newClientFile.idRoClient = newClient.idRoClient;
+        newClientFile.idFile = newFile.idFile;
+        await this.clientFileRepository.insert(newClientFile);
+      }
 
-            const files = await this.clientFileRepository.find({ where: { idRoClient: newClient.idRoClient }, relations: { idRoClient: true, idFile: true }, })
-            return {
-                message: 'Versión agregada con éxito',
-                client: newClient,
-                files
-            }
-        } catch (error) {
-            console.log('Error:', error)
-            throw new HttpException('Problemas con inserción de datos', HttpStatus.BAD_REQUEST)
-        }
+      const files = await this.clientFileRepository.find({
+        where: { idRoClient: newClient.idRoClient },
+        relations: { idRoClient: true, idFile: true },
+      });
+      return {
+        message: 'Versión agregada con éxito',
+        client: newClient,
+        files,
+      };
+    } catch (error) {
+      console.log('Error:', error);
+      throw new HttpException(
+        'Problemas con inserción de datos',
+        HttpStatus.BAD_REQUEST,
+      );
     }
+  }
 
-    async getLastVersion() {
-        try {
-            const client = await this.roClientRepository.findOne({ where: { forceUpdate: true }, order: { createdAt: 'DESC' }, relations: ['clientFiles', 'clientFiles.idFile', 'updates'] })
-            return client
-        } catch (error) {
-            console.log('Error:', error)
-            throw new HttpException('Problemas en consulta', HttpStatus.BAD_REQUEST)
-        }
+  async getLastVersion() {
+    try {
+      const client = await this.roClientRepository.findOne({
+        where: { forceUpdate: true },
+        order: { createdAt: 'DESC' },
+        relations: ['clientFiles', 'clientFiles.idFile', 'updates'],
+      });
+      return client;
+    } catch (error) {
+      console.log('Error:', error);
+      throw new HttpException('Problemas en consulta', HttpStatus.BAD_REQUEST);
     }
+  }
 
-    async getClients() {
-        try {
-            const clients = await this.roClientRepository.find({ order: { createdAt: 'DESC' }, relations: ['clientFiles', 'clientFiles.idFile', 'updates'] })
-            return { clients }
-        } catch (error) {
-            console.log('Error:', error)
-            throw new HttpException('Problemas en consulta', HttpStatus.BAD_REQUEST)
-        }
+  async getClients() {
+    try {
+      const clients = await this.roClientRepository.find({
+        order: { createdAt: 'DESC' },
+        relations: ['clientFiles', 'clientFiles.idFile', 'updates'],
+      });
+      return { clients };
+    } catch (error) {
+      console.log('Error:', error);
+      throw new HttpException('Problemas en consulta', HttpStatus.BAD_REQUEST);
     }
+  }
 
-    async updateClient(params: UpdateClientDto) {
-        try {
-            const { idRoClient, description, forceUpdate } = params
-            await this.roClientRepository.update({ idRoClient }, { description, forceUpdate })
-            const client = await this.roClientRepository.findOne({ where: { idRoClient } })
-            return client
-        } catch (error) {
-            console.log('Error:', error)
-            throw new HttpException('Problemas en consulta', HttpStatus.BAD_REQUEST)
-        }
+  async updateClient(params: UpdateClientDto) {
+    try {
+      const { idRoClient, description, forceUpdate } = params;
+      await this.roClientRepository.update(
+        { idRoClient },
+        { description, forceUpdate },
+      );
+      const client = await this.roClientRepository.findOne({
+        where: { idRoClient },
+      });
+      return client;
+    } catch (error) {
+      console.log('Error:', error);
+      throw new HttpException('Problemas en consulta', HttpStatus.BAD_REQUEST);
     }
+  }
 }
