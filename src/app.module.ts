@@ -8,6 +8,8 @@ import { db } from './common/config/db.config';
 import { ClientModule } from './client/client.module';
 import { AdminModule } from './admin/admin.module';
 import { ProcessLockModule } from './process-lock/process-lock.module';
+import { ItemModule } from './item/item.module';
+import { PrizeModule } from './prize/prize.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { ProcessLockModule } from './process-lock/process-lock.module';
     ClientModule,
     AdminModule,
     ProcessLockModule,
+    ItemModule,
+    PrizeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

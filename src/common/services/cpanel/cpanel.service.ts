@@ -1,10 +1,12 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
 import { IQueryGetChars } from 'src/common/interfaces/query-get-chars.interface';
-import { IQueryGetLogin } from 'src/common/interfaces/query-get-login.interface';
+import { IQueryGetItems } from 'src/common/interfaces/query-get-items.interface';
 import { IQueryGetLogins } from 'src/common/interfaces/query-get-logins.interface';
+import { IQueryGetProcessLock } from 'src/common/interfaces/query-get-process-lock.interface';
 import { IRequestRegisterLogin } from 'src/common/interfaces/request-register-login.interface';
+import { IRequestSavePrize } from 'src/common/interfaces/request-save-prize.interface';
 import { IRequestSaveProcessLock } from 'src/common/interfaces/request-save-process-lock.interface';
 import { IRequestUpdateLockUser } from 'src/common/interfaces/request-update-lock-user.interface';
 import { IRequestUpdateProcessLock } from 'src/common/interfaces/request-update-process-lock.interface';
@@ -95,10 +97,22 @@ export class CpanelService {
     }
   }
 
-  async getProcessLock() {
+  async getProcessLock(query: IQueryGetProcessLock) {
     try {
-      const url = `${this.urlCpanel}/api/process-lock/get-process-lock`;
-      const response = await firstValueFrom(this.httpService.get(url));
+      let queryParams: string = '';
+      let counter: number = 0;
+      for await(let q of Object.keys(query)){
+        if(query[q] && query[q] != ''){
+          if(counter == 0){
+            queryParams += `?${q}=${query[q]}`
+          } else {
+            queryParams += `&${q}=${query[q]}`
+          }
+          counter++;
+        }
+      }
+      const url = `${this.urlCpanel}/api/process-lock/get-process-lock${queryParams}`;
+      const response = await lastValueFrom(this.httpService.get(url));
       return response.data;
     } catch (error) {
       throw error;
@@ -130,6 +144,60 @@ export class CpanelService {
   async deleteProcessLock(id: number) {
     try {
       const url = `${this.urlCpanel}/api/process-lock/delete-process-lock/${id}`;
+      const response = await firstValueFrom(this.httpService.delete(url));
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getItems(query: IQueryGetItems){
+    try {
+      let queryParams: string = '';
+      let counter: number = 0;
+      for await(let q of Object.keys(query)){
+        if(query[q] && query[q] != ''){
+          if(counter == 0){
+            queryParams += `?${q}=${query[q]}`
+          } else {
+            queryParams += `&${q}=${query[q]}`
+          }
+          counter++;
+        }
+      }
+      const url = `${this.urlCpanel}/api/items/get-items${queryParams}`;
+      const response = await lastValueFrom(this.httpService.get(url));
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async savePrize(request: IRequestSavePrize){
+    try {
+      const url = `${this.urlCpanel}/api/prizes/save-prize`;
+      const response = await firstValueFrom(
+        this.httpService.post(url, request),
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getPrizes(){
+    try {
+      const url = `${this.urlCpanel}/api/prizes/get-prizes`;
+      const response = await lastValueFrom(this.httpService.get(url));
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deletePrize(id: number){
+    try {
+      const url = `${this.urlCpanel}/api/prizes/delete-prize/${id}`;
       const response = await firstValueFrom(this.httpService.delete(url));
       return response.data;
     } catch (error) {
