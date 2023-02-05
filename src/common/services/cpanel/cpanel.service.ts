@@ -204,4 +204,14 @@ export class CpanelService {
       throw error;
     }
   }
+
+  async getLastConnectionUser(email:string) {
+    try {
+      const url = `${this.urlCpanel}/api/connection-user/get-my-last-connection?email=${email}`;
+      const response = await lastValueFrom(this.httpService.get(url));
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

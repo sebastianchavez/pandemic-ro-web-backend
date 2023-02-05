@@ -10,6 +10,7 @@ import { AdminModule } from './admin/admin.module';
 import { ProcessLockModule } from './process-lock/process-lock.module';
 import { ItemModule } from './item/item.module';
 import { PrizeModule } from './prize/prize.module';
+import { ConnectionUserModule } from './connection-user/connection-user.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { PrizeModule } from './prize/prize.module';
     ProcessLockModule,
     ItemModule,
     PrizeModule,
+    ConnectionUserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
