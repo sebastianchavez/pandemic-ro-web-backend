@@ -107,7 +107,8 @@ export class UserController {
   }
 
   @Get('ip')
-  getIpAddressFromRequest(@Req() request: Request): string {
-    return request.ip;
+  getIpAddressFromRequest(@Req() request: any): string {
+
+    return request.ipInfo;
   }
 }
