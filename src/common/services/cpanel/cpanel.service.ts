@@ -1,6 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { firstValueFrom, lastValueFrom } from 'rxjs';
+import { IRequestUpdateDevice } from 'src/common/interfaces/request-update-device.interface';
 import { IQueryGetChars } from 'src/common/interfaces/query-get-chars.interface';
 import { IQueryGetItems } from 'src/common/interfaces/query-get-items.interface';
 import { IQueryGetLogins } from 'src/common/interfaces/query-get-logins.interface';
@@ -209,6 +210,16 @@ export class CpanelService {
     try {
       const url = `${this.urlCpanel}/api/connection-user/get-my-last-connection?email=${email}`;
       const response = await lastValueFrom(this.httpService.get(url));
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateDevice(request: IRequestUpdateDevice){
+    try {
+      const url = `${this.urlCpanel}/api/device/update-device`;
+      const response = await lastValueFrom(this.httpService.put(url, request));
       return response.data;
     } catch (error) {
       throw error;
