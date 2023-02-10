@@ -11,6 +11,7 @@ import { IRequestSavePrize } from 'src/common/interfaces/request-save-prize.inte
 import { IRequestSaveProcessLock } from 'src/common/interfaces/request-save-process-lock.interface';
 import { IRequestUpdateLockUser } from 'src/common/interfaces/request-update-lock-user.interface';
 import { IRequestUpdateProcessLock } from 'src/common/interfaces/request-update-process-lock.interface';
+import { IRequestVote } from 'src/common/interfaces/request-vote.interface';
 
 @Injectable()
 export class CpanelService {
@@ -223,6 +224,16 @@ export class CpanelService {
       return response.data;
     } catch (error) {
       throw error;
+    }
+  }
+
+  async vote(request: IRequestVote){
+    try {
+      const url = `${this.urlCpanel}/api/vote`;
+      const response = await lastValueFrom(this.httpService.put(url, request));
+      return response.data;
+    } catch (error) {
+      throw error
     }
   }
 }

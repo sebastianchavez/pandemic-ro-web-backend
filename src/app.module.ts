@@ -12,6 +12,7 @@ import { ItemModule } from './item/item.module';
 import { PrizeModule } from './prize/prize.module';
 import { ConnectionUserModule } from './connection-user/connection-user.module';
 import { DeviceModule } from './device/device.module';
+import { VoteModule } from './vote/vote.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { DeviceModule } from './device/device.module';
     PrizeModule,
     ConnectionUserModule,
     DeviceModule,
+    VoteModule,
   ],
   controllers: [AppController],
   providers: [AppService],
