@@ -1,52 +1,79 @@
 import { Injectable } from '@nestjs/common';
-import { IQueryGetProcessLock } from 'src/common/interfaces/query-get-process-lock.interface';
-import { IRequestSaveProcessLock } from 'src/common/interfaces/request-save-process-lock.interface';
-import { IRequestUpdateProcessLock } from 'src/common/interfaces/request-update-process-lock.interface';
-import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
+import { InjectRepository } from '@nestjs/typeorm';
 import { QueryProcessLockDto } from 'src/process-lock/dtos/query-process-lock.dto';
-import { SaveProcessLockDto } from 'src/process-lock/dtos/save-process-lock.dto';
-import { UpdateProcessLockDto } from 'src/process-lock/dtos/update-process-lock.dto';
+import { RequestSaveProcessLockDto } from 'src/process-lock/dtos/request-save-process-lock.dto';
+import { RequestUpdateProcessLockDto } from 'src/process-lock/dtos/request-update-process-lock.dto';
+import { ProcessLock } from 'src/process-lock/entities/processlock.entity';
+import { Like, Repository } from 'typeorm';
 
 @Injectable()
 export class ProcessLockService {
-  constructor(private cpanelService: CpanelService) {}
+  constructor(
+    @InjectRepository(ProcessLock)
+    private processLockRepository: Repository<ProcessLock>,
+  ) {}
 
-  getProcessLock(query: QueryProcessLockDto) {
+  async getProcessLock(query: QueryProcessLockDto) {
     try {
-      const queryParams: IQueryGetProcessLock = {
-        ...query
+      const { limit, page, typeValidation, value } = query
+      const where = {};
+      if (typeValidation) {
+        where['typeValidation'] = Like(`%${typeValidation}%`);
       }
-      return this.cpanelService.getProcessLock(queryParams);
+      if (value) {
+        where['value'] = Like(`%${value}%`);
+      }
+      const totalRegister = await this.processLockRepository.count({where})
+      const select = { idProcesslock: true, created_at: true, updated_at: true, typeValidation: true, value: true, range: true }
+        let processLocks;        
+        if(limit && limit > 0){
+          processLocks = await this.processLockRepository.find({ select, take: limit, skip: (limit * page - limit), where});  
+        } else {
+          processLocks = await this.processLockRepository.find({ select, where});
+        }
+      return {
+        totalRegister,
+        processLocks
+      }
+    } catch (error) {
+      throw error      
+    }
+  }
+
+  saveProcessLock(body: RequestSaveProcessLockDto) {
+    const processLock = new ProcessLock();
+    processLock.typeValidation = body.typeValidation;
+    processLock.value = body.value;
+    processLock.range = body.range;
+    processLock.created_at = new Date();
+    return this.processLockRepository.insert(processLock);
+  }
+
+  async updateProcessLock(body: RequestUpdateProcessLockDto) {
+    try {
+      const processLock = await this.processLockRepository.findOneBy({
+        idProcesslock: body.idProcesslock,
+      });
+      if (processLock) {
+        processLock.typeValidation = body.typeValidation;
+        processLock.value = body.value;
+        processLock.range = body.range;
+        this.processLockRepository.save(processLock);
+      }
+      return {
+        message: 'Proceso actualizado',
+      };
     } catch (error) {
       throw error;
     }
   }
 
-  saveProcessLock(saveProcessLockDto: SaveProcessLockDto) {
+  async deleteProcessLock(idProcesslock: number) {
     try {
-      const request: IRequestSaveProcessLock = {
-        ...saveProcessLockDto
-      }
-      return this.cpanelService.saveProcessLock(request)
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  updateProcessLock(updateProcessLockDto: UpdateProcessLockDto) {
-    try {
-      const request: IRequestUpdateProcessLock = {
-        ...updateProcessLockDto
-      }
-      return this.cpanelService.updateProcessLock(request)
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  deleteProcessLock(id: number) {
-    try {
-      return this.cpanelService.deleteProcessLock(id)
+      await this.processLockRepository.delete({ idProcesslock });
+      return {
+        message: 'Proceso eliminado',
+      };
     } catch (error) {
       throw error;
     }

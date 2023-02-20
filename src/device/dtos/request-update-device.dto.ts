@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsString } from "class-validator";
 
 export class RequestUpdateDeviceDto {
     @IsNotEmpty()
@@ -11,5 +11,9 @@ export class RequestUpdateDeviceDto {
     
     @IsNotEmpty()
     @IsString()
-    readonly os: string; 
+    readonly os: string;
+
+    @IsNotEmpty()
+    @IsString()
+    readonly socketId: string; 
 }

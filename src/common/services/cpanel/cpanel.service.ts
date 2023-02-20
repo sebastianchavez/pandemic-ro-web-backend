@@ -12,6 +12,7 @@ import { IRequestSaveProcessLock } from 'src/common/interfaces/request-save-proc
 import { IRequestUpdateLockUser } from 'src/common/interfaces/request-update-lock-user.interface';
 import { IRequestUpdateProcessLock } from 'src/common/interfaces/request-update-process-lock.interface';
 import { IRequestVote } from 'src/common/interfaces/request-vote.interface';
+import { IRequestDisconnectDevice } from 'src/common/interfaces/request-disconnect-device.interface';
 
 @Injectable()
 export class CpanelService {
@@ -220,6 +221,17 @@ export class CpanelService {
   async updateDevice(request: IRequestUpdateDevice){
     try {
       const url = `${this.urlCpanel}/api/device/update-device`;
+      const response = await lastValueFrom(this.httpService.put(url, request));
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  
+  async disconnectDevice(request: IRequestDisconnectDevice){
+    try {
+      const url = `${this.urlCpanel}/api/device/disconnect-device`;
       const response = await lastValueFrom(this.httpService.put(url, request));
       return response.data;
     } catch (error) {

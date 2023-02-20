@@ -4,12 +4,13 @@ import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt-nodejs';
 import { TokenService } from '../../../common/services/token/token.service';
 import { RegisterDto } from '../../dtos/register.dto';
-import { USER_STATES } from '../../../common/config/states';
+import { USER_STATES } from '../../../config/states';
 import { RegisterAccountDto } from '../../dtos/register-account.dto';
 import { IRequestRegisterAccount } from '../../interfaces/request-register-account.interface';
 import { LoginDto } from '../../dtos/login.dto';
 import { User } from 'src/user/entities/user.entity';
 import { Account } from 'src/user/entities/account.entity';
+import { AccountTmp } from 'src/user/entities/accounttmp.entity';
 import { UserAccount } from 'src/user/entities/useraccount.entity';
 import { generatePassword } from 'src/common/utils/helpers';
 import { EmailService } from 'src/common/services/email/email.service';
@@ -25,6 +26,8 @@ export class UserService {
     private accountRepository: Repository<Account>,
     @InjectRepository(UserAccount)
     private userAccountRepository: Repository<UserAccount>,
+    @InjectRepository(AccountTmp)
+    private accountTmpRepository: Repository<AccountTmp>,
     private tokenService: TokenService,
     private emailService: EmailService,
     private cpanelService: CpanelService,
@@ -78,11 +81,8 @@ export class UserService {
       account.genre = request.sex;
       account.ragnarokId = responseCpanel.idUser;
       account.user = request.userid;
-      await this.accountRepository.insert(account);
-      const userAccount = new UserAccount();
-      userAccount.idUser = idUser;
-      userAccount.idAccount = account.idAccount;
-      return await this.userAccountRepository.insert(userAccount);
+      account.idUser = idUser;
+      return await this.accountRepository.insert(account);
     } catch (error) {
       throw error;
     }
@@ -144,14 +144,7 @@ export class UserService {
     const {
       user: { email, idUser },
     } = req;
-    // const url = `${this.urlCpanel}/api/accounts/get-account?email=${email}`
-    // return lastValueFrom(this.httpService.get(url))
-    // { select: { idUser: true, idAccount: true, idUserAccount: true }, where: { idUser: idUser }, relations: { idAccount: true } }
-    return await this.userAccountRepository.find({
-      select: { idUser: true, idAccount: true, idUserAccount: true },
-      where: { idUser: idUser },
-      relations: { idAccount: true },
-    });
+    return await this.accountRepository.findBy({idUser})
   }
 
   async recoveryPassword(req: any) {
@@ -166,12 +159,36 @@ export class UserService {
           { idUser },
           { password: bcrypt.hashSync(newPassword, bcrypt.genSaltSync(10)) },
         );
-        this.emailService.sendEmailWelcomeUser;
+        // this.emailService.sendEmailWelcomeUser({});
       } else {
         throw new HttpException('Usuario inválido', HttpStatus.BAD_REQUEST);
       }
     } catch (error) {
       throw error;
+    }
+  }
+
+  async normalizeEntities(){
+    try {
+      await this.accountTmpRepository.clear()
+      const userAccounts = await this.userAccountRepository.find({ select: {idUserAccount: true, idAccount: true, idUser: true} })
+      const accountList: AccountTmp[] = []
+      await Promise.all(userAccounts.map(async (userAccount) =>{
+        const account = await this.accountRepository.findOneBy({idAccount: userAccount.idAccount})
+        const accountTmp = new AccountTmp()
+        accountTmp.createdAt = new Date();
+        accountTmp.genre = account.genre;
+        accountTmp.idUser = userAccount.idUser;
+        accountTmp.ragnarokId = account.ragnarokId;
+        accountTmp.user = account.user;
+        accountList.push(accountTmp)
+      }))
+        await this.accountTmpRepository.insert(accountList)
+      return {
+        message: 'Ok'
+      }
+    } catch (error) {
+      
     }
   }
 }

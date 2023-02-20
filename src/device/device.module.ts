@@ -1,15 +1,14 @@
-import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
-import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { DeviceController } from './device.controller';
+import { Device } from './entities/device.entity';
 import { DeviceService } from './services/device/device.service';
 
 @Module({
   controllers: [DeviceController],
   imports: [
-    HttpModule,
+    TypeOrmModule.forFeature([Device]),
   ],
-  providers: [DeviceService, CpanelService],
-  exports: [CpanelService]
+  providers: [DeviceService]
 })
 export class DeviceModule {}

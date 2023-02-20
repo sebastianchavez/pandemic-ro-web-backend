@@ -14,11 +14,9 @@ export class UserAccount {
   @PrimaryGeneratedColumn('increment')
   idUserAccount: number;
 
-  @ManyToOne((type) => User, (u) => u.idUser)
-  @JoinColumn({ name: 'idUser' })
+ @Column()
   idUser?: number;
 
-  @ManyToOne((type) => Account, (a) => a.idAccount)
-  @JoinColumn({ name: 'idAccount' })
-  idAccount?: number;
+ @Column()
+ idAccount?: number;
 }

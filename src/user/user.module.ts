@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
 import { EmailService } from 'src/common/services/email/email.service';
 import { Account } from 'src/user/entities/account.entity';
+import { AccountTmp } from 'src/user/entities/accounttmp.entity';
 import { User } from 'src/user/entities/user.entity';
 import { UserAccount } from 'src/user/entities/useraccount.entity';
 import { AuthMiddleware } from '../common/middlewares/auth';
@@ -18,6 +19,7 @@ import { UserController } from './user.controller';
     TypeOrmModule.forFeature([User]),
     TypeOrmModule.forFeature([Account]),
     TypeOrmModule.forFeature([UserAccount]),
+    TypeOrmModule.forFeature([AccountTmp]),
     HttpModule,
     TerminusModule,
   ],
@@ -41,6 +43,7 @@ export class UserModule implements NestModule {
         { path: '/api/users/login', method: RequestMethod.POST },
         { path: '/api/users/get-info', method: RequestMethod.GET },
         { path: '/api/users/ip', method: RequestMethod.GET },
+        { path: '/api/users/normalize-entities', method: RequestMethod.PUT },
       )
       .forRoutes('/api/users/');
   }
