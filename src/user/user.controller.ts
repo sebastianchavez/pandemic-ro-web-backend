@@ -111,13 +111,14 @@ export class UserController {
     return request.ipInfo;
   }
 
-  @Put('normalize-entities')
-  async normalizeEntities(@Res() res: Response){
-    try {
-      const response = await this.userService.normalizeEntities()
-      res.status(HttpStatus.OK).send(response);
-    } catch (error) {
-      res.status(error.status).send({ error, message: error.message });
-    }
-  }
+  // se usó para normalizar tablas
+  // @Put('normalize-entities')
+  // async normalizeEntities(@Res() res: Response){
+  //   try {
+  //     const response = await this.userService.normalizeEntities()
+  //     res.status(HttpStatus.OK).send(response);
+  //   } catch (error) {
+  //     res.status(error.status).send({ error, message: error.message });
+  //   }
+  // }
 }

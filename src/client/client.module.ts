@@ -12,10 +12,7 @@ import { ClientService } from './services/client/client.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([RoClient]),
-    TypeOrmModule.forFeature([Update]),
-    TypeOrmModule.forFeature([ClientFile]),
-    TypeOrmModule.forFeature([File]),
+    TypeOrmModule.forFeature([RoClient,Update,ClientFile,File]),
     HttpModule,
     TerminusModule,
   ],

@@ -19,23 +19,23 @@ export class Device {
         type: 'timestamp',
         default: () => 'CURRENT_TIMESTAMP(6)',
     })
-    created_at: Date;
+    createdAt: Date;
 
     @UpdateDateColumn({
         type: 'timestamp',
         default: () => 'CURRENT_TIMESTAMP(6)',
         onUpdate: 'CURRENT_TIMESTAMP(6)',
     })
-    updated_at: Date;
+    updatedAt: Date;
 
     @Column()
     enabled: boolean;
 
     @Column()
-    type_user: string; // user - admin
+    typeUser: string; // user - admin
 
     @Column()
-    socket_id: string;
+    socketId: string;
 
     @Column()
     is_connected: boolean;

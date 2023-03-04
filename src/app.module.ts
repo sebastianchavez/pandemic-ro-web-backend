@@ -13,6 +13,9 @@ import { PrizeModule } from './prize/prize.module';
 import { ConnectionUserModule } from './connection-user/connection-user.module';
 import { DeviceModule } from './device/device.module';
 import { VoteModule } from './vote/vote.module';
+import { NewsModule } from './news/news.module';
+import { RagnarokServerModule } from './ragnarok-server/ragnarok-server.module';
+import { EventsModule } from './events/events.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(db),
@@ -26,6 +29,9 @@ import { VoteModule } from './vote/vote.module';
     ConnectionUserModule,
     DeviceModule,
     VoteModule,
+    NewsModule,
+    RagnarokServerModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

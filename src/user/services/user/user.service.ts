@@ -24,10 +24,6 @@ export class UserService {
     private userRepository: Repository<User>,
     @InjectRepository(Account)
     private accountRepository: Repository<Account>,
-    @InjectRepository(UserAccount)
-    private userAccountRepository: Repository<UserAccount>,
-    @InjectRepository(AccountTmp)
-    private accountTmpRepository: Repository<AccountTmp>,
     private tokenService: TokenService,
     private emailService: EmailService,
     private cpanelService: CpanelService,
@@ -168,27 +164,27 @@ export class UserService {
     }
   }
 
-  async normalizeEntities(){
-    try {
-      await this.accountTmpRepository.clear()
-      const userAccounts = await this.userAccountRepository.find({ select: {idUserAccount: true, idAccount: true, idUser: true} })
-      const accountList: AccountTmp[] = []
-      await Promise.all(userAccounts.map(async (userAccount) =>{
-        const account = await this.accountRepository.findOneBy({idAccount: userAccount.idAccount})
-        const accountTmp = new AccountTmp()
-        accountTmp.createdAt = new Date();
-        accountTmp.genre = account.genre;
-        accountTmp.idUser = userAccount.idUser;
-        accountTmp.ragnarokId = account.ragnarokId;
-        accountTmp.user = account.user;
-        accountList.push(accountTmp)
-      }))
-        await this.accountTmpRepository.insert(accountList)
-      return {
-        message: 'Ok'
-      }
-    } catch (error) {
+  // async normalizeEntities(){
+  //   try {
+  //     await this.accountTmpRepository.clear()
+  //     const userAccounts = await this.userAccountRepository.find({ select: {idUserAccount: true, idAccount: true, idUser: true} })
+  //     const accountList: AccountTmp[] = []
+  //     await Promise.all(userAccounts.map(async (userAccount) =>{
+  //       const account = await this.accountRepository.findOneBy({idAccount: userAccount.idAccount})
+  //       const accountTmp = new AccountTmp()
+  //       accountTmp.createdAt = new Date();
+  //       accountTmp.genre = account.genre;
+  //       accountTmp.idUser = userAccount.idUser;
+  //       accountTmp.ragnarokId = account.ragnarokId;
+  //       accountTmp.user = account.user;
+  //       accountList.push(accountTmp)
+  //     }))
+  //       await this.accountTmpRepository.insert(accountList)
+  //     return {
+  //       message: 'Ok'
+  //     }
+  //   } catch (error) {
       
-    }
-  }
+  //   }
+  // }
 }

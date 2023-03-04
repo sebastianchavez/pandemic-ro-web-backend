@@ -23,10 +23,10 @@ export class DeviceService {
                 mac
             })
             if(device){
-                device.updated_at = new Date();
+                device.updatedAt = new Date();
                 device.ip = ip;
                 device.os = os;
-                device.socket_id = socketId;
+                device.socketId = socketId;
                 device.is_connected = true;
                 await this.deviceRepository.save(device)
             } else {
@@ -35,10 +35,10 @@ export class DeviceService {
                 newDevice.ip = ip;
                 newDevice.os = os;
                 newDevice.mac = mac;
-                newDevice.type_user = TypeUser.user
-                newDevice.created_at = new Date();
+                newDevice.typeUser = TypeUser.user
+                newDevice.createdAt = new Date();
                 newDevice.is_connected = true;
-                newDevice.socket_id = socketId;
+                newDevice.socketId = socketId;
                 await this.deviceRepository.insert(newDevice)
             }
 
@@ -54,13 +54,13 @@ export class DeviceService {
         try {
             const { socketId } = request
             const device = await this.deviceRepository.findOneBy({
-                socket_id: socketId
+                socketId
             })
             if(!device){
                 throw new HttpException('Dispositivo no encontrado', HttpStatus.BAD_REQUEST)
             }
 
-            device.updated_at = new Date();
+            device.updatedAt = new Date();
             device.is_connected = false;
             await this.deviceRepository.save(device)
 

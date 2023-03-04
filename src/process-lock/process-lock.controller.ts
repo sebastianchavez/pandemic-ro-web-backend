@@ -20,7 +20,7 @@ import { ProcessLockService } from './services/process-lock/process-lock.service
 export class ProcessLockController {
   constructor(private processLockService: ProcessLockService) {}
 
-  @Get('get-process-lock')
+  @Get('get-processes-locks')
   async getProcessLock(@Query() query: QueryProcessLockDto ,@Res() res: Response) {
     try {
       const response = await this.processLockService.getProcessLock(query);

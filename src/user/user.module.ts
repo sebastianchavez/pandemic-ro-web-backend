@@ -16,10 +16,7 @@ import { UserController } from './user.controller';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
-    TypeOrmModule.forFeature([Account]),
-    TypeOrmModule.forFeature([UserAccount]),
-    TypeOrmModule.forFeature([AccountTmp]),
+    TypeOrmModule.forFeature([User, Account]),
     HttpModule,
     TerminusModule,
   ],
