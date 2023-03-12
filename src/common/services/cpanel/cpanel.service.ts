@@ -13,6 +13,7 @@ import { IRequestUpdateLockUser } from 'src/common/interfaces/request-update-loc
 import { IRequestUpdateProcessLock } from 'src/common/interfaces/request-update-process-lock.interface';
 import { IRequestVote } from 'src/common/interfaces/request-vote.interface';
 import { IRequestDisconnectDevice } from 'src/common/interfaces/request-disconnect-device.interface';
+import { RequestSavePrizePvpDto } from 'src/prize-pvp/dtos/request-save-prize-pvp.dto';
 
 @Injectable()
 export class CpanelService {
@@ -243,6 +244,38 @@ export class CpanelService {
     try {
       const url = `${this.urlCpanel}/api/vote`;
       const response = await lastValueFrom(this.httpService.put(url, request));
+      return response.data;
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async getPrizesPvp(){
+    try {
+      const url = `${this.urlCpanel}/api/prize-pvp/get-prizes-pvp`;
+      const response = await lastValueFrom(this.httpService.get(url));
+      return response.data;
+    } catch (error) {
+      console.log('error:', error);
+      
+      throw error
+    }
+  }
+
+  async savePrizePvp(request: RequestSavePrizePvpDto){
+    try {
+      const url = `${this.urlCpanel}/api/prize-pvp/save-prize-pvp`;
+      const response = await lastValueFrom(this.httpService.post(url, request));
+      return response.data;
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async deletePrizePvp(id: number){
+    try {
+      const url = `${this.urlCpanel}/api/prize-pvp/delete-prize-pvp/${id}`;
+      const response = await lastValueFrom(this.httpService.delete(url));
       return response.data;
     } catch (error) {
       throw error

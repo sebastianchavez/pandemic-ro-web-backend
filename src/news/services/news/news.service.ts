@@ -114,7 +114,7 @@ export class NewsService {
                 appId: 'pandemic-ro',
                 file: request.image,
                 name: request.nameImage,
-                path: `news/`,
+                path: `${process.env.NODE_ENV}/news/`,
             }
             const response = await this.s3Service.sendS3File(requestS3)
             return response.data

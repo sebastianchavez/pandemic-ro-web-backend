@@ -21,5 +21,5 @@ export class File {
   url: string;
 
   @Column()
-  size: number;
+  version: number;
 }

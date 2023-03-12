@@ -31,7 +31,7 @@ export class ClientService {
         appId: 'pandemic-ro',
         file: body.file,
         name: body.name,
-        path: `client-updates/${body.version}/`,
+        path: `${process.env.NODE_ENV}/client-updates/${body.version}/`,
       };
       const response = await this.s3Service.sendS3File(requestFile);
       const { data } = response;
@@ -57,13 +57,16 @@ export class ClientService {
 
       for await (const f of body.files) {
         const newFile = new File();
-        newFile.name = f.name;
-        newFile.url = f.url;
-        await this.fileRepository.insert(newFile);
+        if(!f.idFile || f.idFile == null){
+          newFile.name = f.name;
+          newFile.url = f.url;
+          newFile.version = f.version;
+          await this.fileRepository.insert(newFile);
+        }
 
         const newClientFile = new ClientFile();
         newClientFile.idRoClient = newClient.idRoClient;
-        newClientFile.idFile = newFile.idFile;
+        newClientFile.idFile = f.idFile || newFile.idFile;
         await this.clientFileRepository.insert(newClientFile);
       }
 

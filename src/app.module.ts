@@ -16,6 +16,7 @@ import { VoteModule } from './vote/vote.module';
 import { NewsModule } from './news/news.module';
 import { RagnarokServerModule } from './ragnarok-server/ragnarok-server.module';
 import { EventsModule } from './events/events.module';
+import { PrizePvpModule } from './prize-pvp/prize-pvp.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(db),
@@ -32,6 +33,7 @@ import { EventsModule } from './events/events.module';
     NewsModule,
     RagnarokServerModule,
     EventsModule,
+    PrizePvpModule,
   ],
   controllers: [AppController],
   providers: [AppService],
