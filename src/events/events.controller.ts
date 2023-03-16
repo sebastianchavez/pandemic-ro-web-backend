@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
+import { QueryGetEventsPageDto } from './dtos/query-get-events-page.dto';
 import { QueryGetEventsDto } from './dtos/query-get-events.dto';
 import { RequestSaveEventDto } from './dtos/request-save-event.dto';
 import { RequestUpdateEventDto } from './dtos/request-update-event.dto';
@@ -19,6 +20,16 @@ export class EventsController {
             res.status(HttpStatus.OK).send(response)
         } catch (error) {
             throw error            
+        }
+    }
+
+    @Get('get-events-page')
+    async getEvenstPage(@Query() query: QueryGetEventsPageDto, @Res() res: Response){
+        try {
+            const response = await this.eventService.getEventsPage(query)
+            res.status(HttpStatus.OK).send(response)
+        } catch (error) {
+            throw error
         }
     }
 

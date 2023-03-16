@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { QueryGetEventsPageDto } from 'src/events/dtos/query-get-events-page.dto';
 import { QueryGetEventsDto } from 'src/events/dtos/query-get-events.dto';
 import { RequestSaveEventDto } from 'src/events/dtos/request-save-event.dto';
 import { RequestUpdateEventDto } from 'src/events/dtos/request-update-event.dto';
@@ -9,6 +10,8 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class EventService {
+
+  schema: string = process.env.DB_SCHEMA;
 
     constructor(
         @InjectRepository(Event)
@@ -35,11 +38,25 @@ export class EventService {
                 events = await this.eventRepository.findBy(where)
             }
             return {
+                serverDate: new Date(),
                 events,
                 totalRegister
             }
         } catch (error) {
             throw error            
+        }
+    }
+
+    async getEventsPage(queryParams: QueryGetEventsPageDto){
+        try {
+            const { day, hour } = queryParams
+            let query = `SELECT * FROM ${this.schema}.event 
+                        WHERE days like '%${day}%'
+                        AND startHour > ${hour} ${hour >= 0 ? `AND startHour >= ${hour-400}`: ''}  LIMIT 10`;
+            const events = await this.eventRepository.query(query)
+            return events
+        } catch (error) {
+            throw error
         }
     }
 
