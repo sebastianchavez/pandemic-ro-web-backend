@@ -40,9 +40,9 @@ export class CpanelService {
     }
   }
 
-  async getLogin(userid: string) {
+  async getLogin(email: string) {
     try {
-      const url = `${this.urlCpanel}/api/login/get-login?userid=${userid}`;
+      const url = `${this.urlCpanel}/api/login/get-login?email=${email}`;
       const response = await firstValueFrom(this.httpService.get(url));
       return response.data;
     } catch (error) {

@@ -140,7 +140,8 @@ export class UserService {
     const {
       user: { email, idUser },
     } = req;
-    return await this.accountRepository.findBy({idUser})
+
+    return this.cpanelService.getLogin(email)
   }
 
   async recoveryPassword(req: any) {
