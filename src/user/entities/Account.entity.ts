@@ -14,7 +14,7 @@ export class Account {
   @PrimaryGeneratedColumn('increment')
   idAccount: number;
 
-  @Column({ unique: true })
+  @Column()
   ragnarokId: number;
 
   @Column({ unique: true })
