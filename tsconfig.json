@@ -8,6 +8,7 @@
     "outDir": "./dist",
     "strict": false,
     "noImplicitAny": true,
+    "experimentalDecorators": true,
     "esModuleInterop": true
   },
   "exclude": [
