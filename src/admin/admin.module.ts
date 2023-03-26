@@ -20,10 +20,7 @@ import { RagnarokLockService } from './services/ragnarok-lock/ragnarok-lock.serv
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Admin]),
-    TypeOrmModule.forFeature([AdminRole]),
-    TypeOrmModule.forFeature([Menu]),
-    TypeOrmModule.forFeature([RoleMenu]),
+    TypeOrmModule.forFeature([Admin, AdminRole, Menu, RoleMenu]),
     HttpModule,
   ],
   controllers: [AdminController],
