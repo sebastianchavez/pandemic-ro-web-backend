@@ -1,6 +1,6 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
-import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
+import { CpanelService } from '../common/services/cpanel/cpanel.service';
 import { PrizePvpController } from './prize-pvp.controller';
 import { PrizePvpService } from './service/prize-pvp/prize-pvp.service';
 

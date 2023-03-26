@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
-import { RequestSavePrizePvpDto } from 'src/prize-pvp/dtos/request-save-prize-pvp.dto';
+import { CpanelService } from '../../../common/services/cpanel/cpanel.service';
+import { RequestSavePrizePvpDto } from '../../../prize-pvp/dtos/request-save-prize-pvp.dto';
 
 @Injectable()
 export class PrizePvpService {

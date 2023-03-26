@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { QueryProcessLockDto } from 'src/process-lock/dtos/query-process-lock.dto';
-import { RequestSaveProcessLockDto } from 'src/process-lock/dtos/request-save-process-lock.dto';
-import { RequestUpdateProcessLockDto } from 'src/process-lock/dtos/request-update-process-lock.dto';
-import { ProcessLock } from 'src/process-lock/entities/processlock.entity';
+import { QueryProcessLockDto } from '../../../process-lock/dtos/query-process-lock.dto';
+import { RequestSaveProcessLockDto } from '../../../process-lock/dtos/request-save-process-lock.dto';
+import { RequestUpdateProcessLockDto } from '../../../process-lock/dtos/request-update-process-lock.dto';
+import { ProcessLock } from '../../../process-lock/entities/processlock.entity';
 import { Like, Repository } from 'typeorm';
 
 @Injectable()

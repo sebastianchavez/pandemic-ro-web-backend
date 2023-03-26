@@ -1,13 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { NewVersionDto } from 'src/client/dtos/new-version.dto';
-import { UpdateClientDto } from 'src/client/dtos/update-client.dto';
-import { UpdateFileDto } from 'src/client/dtos/update-file.dto';
-import { ClientFile } from 'src/client/entities/client-file.entity';
-import { File } from 'src/client/entities/file.entity';
-import { RoClient } from 'src/client/entities/roclient.entity';
-import { Update } from 'src/client/entities/update.entity';
-import { IRequestFileS3 } from 'src/common/interfaces/request-s3.interface';
+import { NewVersionDto } from '../../../client/dtos/new-version.dto';
+import { UpdateClientDto } from '../../../client/dtos/update-client.dto';
+import { UpdateFileDto } from '../../../client/dtos/update-file.dto';
+import { ClientFile } from '../../../client/entities/client-file.entity';
+import { File } from '../../../client/entities/file.entity';
+import { RoClient } from '../../../client/entities/roclient.entity';
+import { Update } from '../../../client/entities/update.entity';
+import { IRequestFileS3 } from '../../../common/interfaces/request-s3.interface';
 import { S3Service } from '../../../common/services/s3/s3.service';
 import { Repository } from 'typeorm';
 

@@ -1,17 +1,14 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LoginAdminDto } from 'src/admin/dtos/login-admin.dto';
-import { RegisterAdminDto } from 'src/admin/dtos/register-admin.dto';
-import { Admin } from 'src/admin/entities/admin.entity';
-import { AdminRole } from 'src/admin/entities/adminrole.entity';
-import { Menu } from 'src/admin/entities/menu.entity';
+import { LoginAdminDto } from '../../../admin/dtos/login-admin.dto';
+import { RegisterAdminDto } from '../../../admin/dtos/register-admin.dto';
+import { Admin } from '../../../admin/entities/admin.entity';
+import { AdminRole } from '../../../admin/entities/adminrole.entity';
+import { Menu } from '../../../admin/entities/menu.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt-nodejs';
-import { RoleMenu } from 'src/admin/entities/rolemenu.entity';
-import { TokenService } from 'src/common/services/token/token.service';
-import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
-import { IQueryGetLogins } from 'src/common/interfaces/query-get-logins.interface';
-import { QueryGetLoginsDto } from 'src/admin/dtos/query-get-logins.dto';
+import { RoleMenu } from '../../../admin/entities/rolemenu.entity';
+import { TokenService } from '../../../common/services/token/token.service';
 
 @Injectable()
 export class AdminService {

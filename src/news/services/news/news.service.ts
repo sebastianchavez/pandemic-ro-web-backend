@@ -1,13 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IRequestFileS3 } from 'src/common/interfaces/request-s3.interface';
-import { S3Service } from 'src/common/services/s3/s3.service';
-import { QueryGetNewsDto } from 'src/news/dtos/query-get-news.dto';
-import { RequestSaveNewsDto } from 'src/news/dtos/request-save-news.dto';
-import { RequestUpdateNewsImageDto } from 'src/news/dtos/request-update-news-image.dto';
-import { RequestUpdateNewsDto } from 'src/news/dtos/request-update-news.dto';
-import { News } from 'src/news/entities/news.entity';
-import { Server } from 'src/ragnarok-server/entity/server.entity';
+import { IRequestFileS3 } from '../../../common/interfaces/request-s3.interface';
+import { S3Service } from '../../../common/services/s3/s3.service';
+import { QueryGetNewsDto } from '../../../news/dtos/query-get-news.dto';
+import { RequestSaveNewsDto } from '../../../news/dtos/request-save-news.dto';
+import { RequestUpdateNewsImageDto } from '../../../news/dtos/request-update-news-image.dto';
+import { RequestUpdateNewsDto } from '../../../news/dtos/request-update-news.dto';
+import { News } from '../../../news/entities/news.entity';
+import { Server } from '../../../ragnarok-server/entity/server.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { IRequestSavePrize } from 'src/common/interfaces/request-save-prize.interface';
-import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
+import { IRequestSavePrize } from '../../../common/interfaces/request-save-prize.interface';
+import { CpanelService } from '../../../common/services/cpanel/cpanel.service';
 import { RequestSavePrizeDto } from '../../dtos/request-save-prize.dto';
 
 @Injectable()

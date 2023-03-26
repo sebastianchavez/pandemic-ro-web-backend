@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { RequestLockUserDto } from 'src/admin/dtos/request-lock-user.dto';
-import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
+import { RequestLockUserDto } from '../../../admin/dtos/request-lock-user.dto';
+import { CpanelService } from '../../../common/services/cpanel/cpanel.service';
 
 @Injectable()
 export class RagnarokLockService {

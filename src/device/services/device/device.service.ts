@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { HttpStatus } from '@nestjs/common/enums';
 import { HttpException } from '@nestjs/common/exceptions';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TypeUser } from 'src/common/enums/type-user.enum';
-import { RequestDisconnectDeviceDto } from 'src/device/dtos/request-disconnect-device.dto';
-import { RequestUpdateDeviceDto } from 'src/device/dtos/request-update-device.dto';
-import { Device } from 'src/device/entities/device.entity';
+import { TypeUser } from '../../../common/enums/type-user.enum';
+import { RequestDisconnectDeviceDto } from '../../../device/dtos/request-disconnect-device.dto';
+import { RequestUpdateDeviceDto } from '../../../device/dtos/request-update-device.dto';
+import { Device } from '../../../device/entities/device.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RequestSaveRagnarokServerDto } from 'src/ragnarok-server/dtos/request-save-ragnarok-server.dto';
-import { RequestUpdateRagnarokServerDto } from 'src/ragnarok-server/dtos/request-update-ragnarok-server.dto';
+import { RequestSaveRagnarokServerDto } from '../../../ragnarok-server/dtos/request-save-ragnarok-server.dto';
+import { RequestUpdateRagnarokServerDto } from '../../../ragnarok-server/dtos/request-update-ragnarok-server.dto';
 import { Repository } from 'typeorm';
 import { Server } from '../../entity/server.entity'
 

@@ -1,11 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { QueryGetEventsPageDto } from 'src/events/dtos/query-get-events-page.dto';
-import { QueryGetEventsDto } from 'src/events/dtos/query-get-events.dto';
-import { RequestSaveEventDto } from 'src/events/dtos/request-save-event.dto';
-import { RequestUpdateEventDto } from 'src/events/dtos/request-update-event.dto';
-import { Event } from 'src/events/entities/event.entity';
-import { Server } from 'src/ragnarok-server/entity/server.entity';
+import { QueryGetEventsPageDto } from '../../../events/dtos/query-get-events-page.dto';
+import { QueryGetEventsDto } from '../../../events/dtos/query-get-events.dto';
+import { RequestSaveEventDto } from '../../../events/dtos/request-save-event.dto';
+import { RequestUpdateEventDto } from '../../../events/dtos/request-update-event.dto';
+import { Event } from '../../../events/entities/event.entity';
+import { Server } from '../../../ragnarok-server/entity/server.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

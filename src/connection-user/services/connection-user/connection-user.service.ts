@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
+import { CpanelService } from '../../../common/services/cpanel/cpanel.service';
 
 @Injectable()
 export class ConnectionUserService {

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { IQueryGetItems } from 'src/common/interfaces/query-get-items.interface';
-import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
-import { QueryGetItemDto } from 'src/item/dtos/query-get-item.dto';
+import { IQueryGetItems } from '../../../common/interfaces/query-get-items.interface';
+import { CpanelService } from '../../../common/services/cpanel/cpanel.service';
+import { QueryGetItemDto } from '../../../item/dtos/query-get-item.dto';
 
 @Injectable()
 export class ItemService {

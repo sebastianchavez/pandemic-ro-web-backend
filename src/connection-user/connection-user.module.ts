@@ -1,9 +1,9 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { MiddlewareConsumer, NestModule } from '@nestjs/common/interfaces';
-import { AuthMiddleware } from 'src/common/middlewares/auth';
-import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
-import { TokenService } from 'src/common/services/token/token.service';
+import { AuthMiddleware } from '../common/middlewares/auth';
+import { CpanelService } from '../common/services/cpanel/cpanel.service';
+import { TokenService } from '../common/services/token/token.service';
 import { ConnectionUserController } from './connection-user.controller';
 import { ConnectionUserService } from './services/connection-user/connection-user.service';
 

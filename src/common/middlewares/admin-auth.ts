@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware, HttpStatus } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
-import { AdminService } from 'src/admin/services/admin/admin.service';
+import { AdminService } from '../../admin/services/admin/admin.service';
 import { TokenService } from '../services/token/token.service';
 require('dotenv').config();
 

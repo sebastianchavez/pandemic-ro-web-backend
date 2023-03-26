@@ -8,14 +8,11 @@ import { USER_STATES } from '../../../config/states';
 import { RegisterAccountDto } from '../../dtos/register-account.dto';
 import { IRequestRegisterAccount } from '../../interfaces/request-register-account.interface';
 import { LoginDto } from '../../dtos/login.dto';
-import { User } from 'src/user/entities/user.entity';
-import { Account } from 'src/user/entities/account.entity';
-import { AccountTmp } from 'src/user/entities/accounttmp.entity';
-import { UserAccount } from 'src/user/entities/useraccount.entity';
-import { generatePassword } from 'src/common/utils/helpers';
-import { EmailService } from 'src/common/services/email/email.service';
-import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
-import { IRequestRegisterLogin } from 'src/common/interfaces/request-register-login.interface';
+import { User } from '../../../user/entities/user.entity';
+import { Account } from '../../../user/entities/account.entity';
+import { generatePassword } from '../../../common/utils/helpers';
+import { CpanelService } from '../../../common/services/cpanel/cpanel.service';
+import { IRequestRegisterLogin } from '../../../common/interfaces/request-register-login.interface';
 
 @Injectable()
 export class UserService {
@@ -25,7 +22,6 @@ export class UserService {
     @InjectRepository(Account)
     private accountRepository: Repository<Account>,
     private tokenService: TokenService,
-    private emailService: EmailService,
     private cpanelService: CpanelService,
   ) {}
 

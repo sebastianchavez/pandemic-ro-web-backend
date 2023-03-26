@@ -1,19 +1,19 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { firstValueFrom, lastValueFrom } from 'rxjs';
-import { IRequestUpdateDevice } from 'src/common/interfaces/request-update-device.interface';
-import { IQueryGetChars } from 'src/common/interfaces/query-get-chars.interface';
-import { IQueryGetItems } from 'src/common/interfaces/query-get-items.interface';
-import { IQueryGetLogins } from 'src/common/interfaces/query-get-logins.interface';
-import { IQueryGetProcessLock } from 'src/common/interfaces/query-get-process-lock.interface';
-import { IRequestRegisterLogin } from 'src/common/interfaces/request-register-login.interface';
-import { IRequestSavePrize } from 'src/common/interfaces/request-save-prize.interface';
-import { IRequestSaveProcessLock } from 'src/common/interfaces/request-save-process-lock.interface';
-import { IRequestUpdateLockUser } from 'src/common/interfaces/request-update-lock-user.interface';
-import { IRequestUpdateProcessLock } from 'src/common/interfaces/request-update-process-lock.interface';
-import { IRequestVote } from 'src/common/interfaces/request-vote.interface';
-import { IRequestDisconnectDevice } from 'src/common/interfaces/request-disconnect-device.interface';
-import { RequestSavePrizePvpDto } from 'src/prize-pvp/dtos/request-save-prize-pvp.dto';
+import { IRequestUpdateDevice } from '../../../common/interfaces/request-update-device.interface';
+import { IQueryGetChars } from '../../../common/interfaces/query-get-chars.interface';
+import { IQueryGetItems } from '../../../common/interfaces/query-get-items.interface';
+import { IQueryGetLogins } from '../../../common/interfaces/query-get-logins.interface';
+import { IQueryGetProcessLock } from '../../../common/interfaces/query-get-process-lock.interface';
+import { IRequestRegisterLogin } from '../../../common/interfaces/request-register-login.interface';
+import { IRequestSavePrize } from '../../../common/interfaces/request-save-prize.interface';
+import { IRequestSaveProcessLock } from '../../../common/interfaces/request-save-process-lock.interface';
+import { IRequestUpdateLockUser } from '../../../common/interfaces/request-update-lock-user.interface';
+import { IRequestUpdateProcessLock } from '../../../common/interfaces/request-update-process-lock.interface';
+import { IRequestVote } from '../../../common/interfaces/request-vote.interface';
+import { IRequestDisconnectDevice } from '../../../common/interfaces/request-disconnect-device.interface';
+import { RequestSavePrizePvpDto } from '../../../prize-pvp/dtos/request-save-prize-pvp.dto';
 
 @Injectable()
 export class CpanelService {

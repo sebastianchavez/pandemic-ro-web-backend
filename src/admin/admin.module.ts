@@ -6,9 +6,9 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AdminAuthMiddleware } from 'src/common/middlewares/admin-auth';
-import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
-import { TokenService } from 'src/common/services/token/token.service';
+import { AdminAuthMiddleware } from '../common/middlewares/admin-auth';
+import { CpanelService } from '../common/services/cpanel/cpanel.service';
+import { TokenService } from '../common/services/token/token.service';
 import { AdminController } from './admin.controller';
 import { Admin } from './entities/admin.entity';
 import { AdminRole } from './entities/adminrole.entity';

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { IRequestVote } from 'src/common/interfaces/request-vote.interface';
-import { CpanelService } from 'src/common/services/cpanel/cpanel.service';
-import { VoteDto } from 'src/vote/dtos/vote.dto';
+import { IRequestVote } from '../../../common/interfaces/request-vote.interface';
+import { CpanelService } from '../../../common/services/cpanel/cpanel.service';
+import { VoteDto } from '../../../vote/dtos/vote.dto';
 
 @Injectable()
 export class VoteService {
