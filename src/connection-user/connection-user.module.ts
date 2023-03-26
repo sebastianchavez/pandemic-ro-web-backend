@@ -2,7 +2,7 @@ import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { MiddlewareConsumer, NestModule } from '@nestjs/common/interfaces';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from '../user/entities/user.entity';
+import { UserEntity } from '../user/entities/user.entity';
 import { AuthMiddleware } from '../common/middlewares/auth';
 import { CpanelService } from '../common/services/cpanel/cpanel.service';
 import { TokenService } from '../common/services/token/token.service';
@@ -12,7 +12,7 @@ import { ConnectionUserService } from './services/connection-user/connection-use
 @Module({
   controllers: [ConnectionUserController],
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([UserEntity]),
     HttpModule,
   ],
   providers: [ConnectionUserService, CpanelService, TokenService],

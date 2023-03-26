@@ -5,8 +5,8 @@ import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CpanelService } from '../common/services/cpanel/cpanel.service';
 import { EmailService } from '../common/services/email/email.service';
-import { Account } from './entities/account.entity';
-import { User } from './entities/user.entity';
+import { AccountEntity } from './entities/account.entity';
+import { UserEntity } from './entities/user.entity';
 import { AuthMiddleware } from '../common/middlewares/auth';
 import { TokenService } from '../common/services/token/token.service';
 import { UserService } from './services/user/user.service';
@@ -14,7 +14,7 @@ import { UserController } from './user.controller';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Account]),
+    TypeOrmModule.forFeature([UserEntity, AccountEntity]),
     HttpModule,
     TerminusModule,
   ],

@@ -8,8 +8,8 @@ import { USER_STATES } from '../../../config/states';
 import { RegisterAccountDto } from '../../dtos/register-account.dto';
 import { IRequestRegisterAccount } from '../../interfaces/request-register-account.interface';
 import { LoginDto } from '../../dtos/login.dto';
-import { User } from '../../../user/entities/user.entity';
-import { Account } from '../../../user/entities/account.entity';
+import { UserEntity } from '../../../user/entities/user.entity';
+import { AccountEntity } from '../../../user/entities/account.entity';
 import { generatePassword } from '../../../common/utils/helpers';
 import { CpanelService } from '../../../common/services/cpanel/cpanel.service';
 import { IRequestRegisterLogin } from '../../../common/interfaces/request-register-login.interface';
@@ -17,10 +17,10 @@ import { IRequestRegisterLogin } from '../../../common/interfaces/request-regist
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
-    @InjectRepository(Account)
-    private accountRepository: Repository<Account>,
+    @InjectRepository(UserEntity)
+    private userRepository: Repository<UserEntity>,
+    @InjectRepository(AccountEntity)
+    private accountRepository: Repository<AccountEntity>,
     private tokenService: TokenService,
     private cpanelService: CpanelService,
   ) {}
@@ -36,7 +36,7 @@ export class UserService {
         );
       }
 
-      const user = new User();
+      const user = new UserEntity();
       user.email = params.email;
       user.password = bcrypt.hashSync(params.password, bcrypt.genSaltSync(10));
       user.state = USER_STATES.ENABLED;
@@ -69,7 +69,7 @@ export class UserService {
   async registerUserRo(request: IRequestRegisterLogin, idUser: number) {
     try {
       const responseCpanel = await this.cpanelService.registerLogin(request);
-      const account = new Account();
+      const account = new AccountEntity();
       account.genre = request.sex;
       account.ragnarokId = responseCpanel.idUser;
       account.user = request.userid;

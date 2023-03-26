@@ -7,10 +7,10 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { User } from './user.entity';
+import { UserEntity } from './user.entity';
 
 @Entity('account')
-export class Account {
+export class AccountEntity {
   @PrimaryGeneratedColumn('increment')
   idAccount: number;
 
@@ -23,7 +23,7 @@ export class Account {
   @Column()
   genre: string;
 
-  @ManyToOne((type) => User, (u) => u.idUser)
+  @ManyToOne((type) => UserEntity, (u) => u.idUser)
   @JoinColumn({ name: 'idUser' })
   idUser: number;
 

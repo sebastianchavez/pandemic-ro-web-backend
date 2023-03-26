@@ -6,7 +6,6 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from '../user/entities/user.entity';
 import { AdminAuthMiddleware } from '../common/middlewares/admin-auth';
 import { CpanelService } from '../common/services/cpanel/cpanel.service';
 import { TokenService } from '../common/services/token/token.service';
@@ -21,7 +20,7 @@ import { RagnarokLockService } from './services/ragnarok-lock/ragnarok-lock.serv
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Admin, AdminRole, Menu, RoleMenu, User]),
+    TypeOrmModule.forFeature([Admin, AdminRole, Menu, RoleMenu]),
     HttpModule,
   ],
   controllers: [AdminController],
