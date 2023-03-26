@@ -3,7 +3,7 @@
     "module": "commonjs",
     "declaration": true,
     "moduleResolution": "node",
-    "target": "es2018",
+    "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
     "strict": false,
