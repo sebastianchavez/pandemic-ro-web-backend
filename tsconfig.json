@@ -14,9 +14,6 @@
       "@modules/*": [
         "src/modules/*.module.ts",
       ],
-      "@entities/*": [
-        "src/user/entities/*.entity.ts",
-      ]
     }
   },
   "exclude": [
