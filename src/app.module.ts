@@ -17,6 +17,7 @@ import { NewsModule } from './news/news.module';
 import { RagnarokServerModule } from './ragnarok-server/ragnarok-server.module';
 import { EventsModule } from './events/events.module';
 import { PrizePvpModule } from './prize-pvp/prize-pvp.module';
+import { UserEntity } from './user/entities/user.entity';
 @Module({
   imports: [
     UserModule,
@@ -34,6 +35,7 @@ import { PrizePvpModule } from './prize-pvp/prize-pvp.module';
     EventsModule,
     PrizePvpModule,
     TypeOrmModule.forRoot(db),
+    TypeOrmModule.forFeature([UserEntity]),
   ],
   controllers: [AppController],
   providers: [AppService],
