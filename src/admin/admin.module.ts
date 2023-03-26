@@ -32,7 +32,7 @@ import { RagnarokLockService } from './services/ragnarok-lock/ragnarok-lock.serv
     RagnarokCharService,
     RagnarokLockService,
   ],
-  exports: [TokenService, CpanelService],
+  exports: [TokenService, CpanelService, TypeOrmModule],
 })
 export class AdminModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
