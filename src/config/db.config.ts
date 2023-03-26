@@ -12,8 +12,8 @@ import { Event } from '../events/entities/event.entity';
 import { News } from '../news/entities/news.entity';
 import { ProcessLock } from '../process-lock/entities/processlock.entity';
 import { Server } from '../ragnarok-server/entity/server.entity';
-import { Account } from '../user/entities/account.entity';
-import { User } from '../user/entities/user.entity';
+import { Account } from '@entities/account';
+import { User } from '@entities/user';
 require('dotenv').config();
 const { DB_PORT, DB_USER, DB_PASS, DB_SCHEMA, DB_HOST } = process.env;
 
