@@ -2,13 +2,22 @@
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,
-    "moduleResolution": "node",
-    "target": "es2017",
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es6",
     "sourceMap": true,
     "outDir": "./dist",
-    "strict": false,
-    "experimentalDecorators": true,
-    "esModuleInterop": true
+    "baseUrl": "./",
+    "incremental": true,
+    "paths": {
+      "@modules/*": [
+        "src/modules/*.module.ts",
+      ],
+      "@entities/*": [
+        "src/user/entities/*.entity.ts",
+      ]
+    }
   },
   "exclude": [
     "node_modules"

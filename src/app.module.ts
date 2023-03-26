@@ -17,7 +17,7 @@ import { NewsModule } from './news/news.module';
 import { RagnarokServerModule } from './ragnarok-server/ragnarok-server.module';
 import { EventsModule } from './events/events.module';
 import { PrizePvpModule } from './prize-pvp/prize-pvp.module';
-import { UserEntity } from './user/entities/user.entity';
+import { UserEntity } from '@entities/User';
 @Module({
   imports: [
     UserModule,

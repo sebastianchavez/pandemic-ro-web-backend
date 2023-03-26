@@ -6,7 +6,7 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity } from '../user/entities/user.entity';
+import { UserEntity } from '@entities/User';
 import { AdminAuthMiddleware } from '../common/middlewares/admin-auth';
 import { CpanelService } from '../common/services/cpanel/cpanel.service';
 import { TokenService } from '../common/services/token/token.service';
