@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as moment from 'moment';
 import { config } from 'dotenv';
 import * as jwt from 'jwt-simple';
-import { User as UserEntity } from '../../../user/entities/user.entity';
+import { User } from '../../../user/entities/user.entity';
 import { Admin } from '../../../admin/entities/admin.entity';
 config();
 
@@ -23,7 +23,7 @@ export class TokenService {
     return jwt.encode(payload, SECRET_TOKEN);
   }
 
-  createToken(user: UserEntity) {
+  createToken(user: User) {
     const payload = {
       sub: {
         idUser: user.idUser,

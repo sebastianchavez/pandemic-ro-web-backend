@@ -19,7 +19,6 @@ import { EventsModule } from './events/events.module';
 import { PrizePvpModule } from './prize-pvp/prize-pvp.module';
 @Module({
   imports: [
-    TypeOrmModule.forRoot(db),
     UserModule,
     HealthModule,
     ClientModule,
@@ -34,6 +33,7 @@ import { PrizePvpModule } from './prize-pvp/prize-pvp.module';
     RagnarokServerModule,
     EventsModule,
     PrizePvpModule,
+    TypeOrmModule.forRoot(db),
   ],
   controllers: [AppController],
   providers: [AppService],
