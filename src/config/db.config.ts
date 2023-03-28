@@ -12,7 +12,6 @@ export const db: TypeOrmModuleOptions = {
   password: DB_PASS,
   database: DB_SCHEMA,
   entities: [
-   '../**/**/*.entity.{ts,js}'
   ],
   autoLoadEntities: true,
   synchronize: true,
