@@ -27,7 +27,7 @@ export class UserService {
 
   async register(params: RegisterDto) {
     try {
-      const data = await this.cpanelService.getLogin(params.user);
+      const data = await this.cpanelService.getLogin(params.email);
 
       if (data.user) {
         throw new HttpException(

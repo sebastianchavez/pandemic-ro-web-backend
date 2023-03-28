@@ -31,6 +31,8 @@ export class UsersController {
         .status(HttpStatus.OK)
         .send({ message: 'Usuario registrado con éxito' });
     } catch (error) {
+        console.log('ERROR:', error);
+        
       if (error['code'] && error['code'] == 'ER_DUP_ENTRY') {
         res
           .status(HttpStatus.BAD_REQUEST)
