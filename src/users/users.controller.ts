@@ -1,21 +1,12 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpStatus,
-  Post,
-  Put,
-  Req,
-  Res,
-} from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Body, Controller, Get, HttpStatus, Post, Put, Req, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { LoginDto } from './dtos/login.dto';
 import { RegisterAccountDto } from './dtos/register-account.dto';
 import { RegisterDto } from './dtos/register.dto';
 import { UserService } from './services/user/user.service';
 
 @Controller('api/users')
-export class UserController {
+export class UsersController {
   constructor(private userService: UserService) {}
 
   @Post('login')

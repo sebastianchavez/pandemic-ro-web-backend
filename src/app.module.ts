@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
 import { HealthModule } from './health/health.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { db } from './config/db.config';
@@ -17,10 +16,10 @@ import { NewsModule } from './news/news.module';
 import { RagnarokServerModule } from './ragnarok-server/ragnarok-server.module';
 import { EventsModule } from './events/events.module';
 import { PrizePvpModule } from './prize-pvp/prize-pvp.module';
-import { UserEntity } from '@entities/user';
+import { User } from './users/entities/User.entity';
+import { UsersModule } from './users/users.module';
 @Module({
   imports: [
-    UserModule,
     HealthModule,
     ClientModule,
     AdminModule,
@@ -35,7 +34,8 @@ import { UserEntity } from '@entities/user';
     EventsModule,
     PrizePvpModule,
     TypeOrmModule.forRoot(db),
-    TypeOrmModule.forFeature([UserEntity]),
+    TypeOrmModule.forFeature([User]),
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -4,21 +4,28 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
+import { User } from './User.entity';
 
-@Entity('user')
-export class UserEntity {
+@Entity('account')
+export class Account {
   @PrimaryGeneratedColumn('increment')
-  idUser: number;
+  idAccount: number;
+
+  @Column()
+  ragnarokId: number;
 
   @Column({ unique: true })
-  email: string;
+  user: string;
 
   @Column()
-  password: string;
+  genre: string;
 
-  @Column()
-  state: string;
+  @ManyToOne((type) => User, (u) => u.idUser)
+  @JoinColumn({ name: 'idUser' })
+  idUser: number;
 
   @CreateDateColumn({
     type: 'timestamp',
