@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as moment from 'moment';
 import { config } from 'dotenv';
 import * as jwt from 'jwt-simple';
-import { UserEntity } from '@entities/User';
+import { UserEntity } from '@entities/user';
 import { Admin } from '../../../admin/entities/admin.entity';
 config();
 
