@@ -281,4 +281,14 @@ export class CpanelService {
       throw error
     }
   }
+
+  async getPvpRanking(){
+    try {
+      const url = `${this.urlCpanel}/api/pvp-ranking/get-ranking`;
+      const response = await lastValueFrom(this.httpService.get(url));
+      return response.data;
+    } catch (error) {
+      throw error
+    }
+  }
 }

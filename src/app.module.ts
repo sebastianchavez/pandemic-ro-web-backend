@@ -18,6 +18,7 @@ import { EventsModule } from './events/events.module';
 import { PrizePvpModule } from './prize-pvp/prize-pvp.module';
 import { User } from './users/entities/User.entity';
 import { UsersModule } from './users/users.module';
+import { PvpRankingModule } from './pvp-ranking/pvp-ranking.module';
 @Module({
   imports: [
     HealthModule,
@@ -36,6 +37,7 @@ import { UsersModule } from './users/users.module';
     TypeOrmModule.forRoot(db),
     TypeOrmModule.forFeature([User]),
     UsersModule,
+    PvpRankingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
