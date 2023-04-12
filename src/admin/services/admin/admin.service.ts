@@ -58,17 +58,22 @@ export class AdminService {
     try {
       const admin = await this.adminRepository.findOne({
         where: { email: body.email },
+        relations: ['idAdminRole']
       });
       if (admin) {
         if (bcrypt.compareSync(body.password, admin.password)) {
           const token = this.tokenService.createTokenAdmin(admin);
+          const idAdminRole: any  = admin.idAdminRole
+          const role = idAdminRole.idAdminRole
           const response = {
             accessToken: token,
             admin: {
               email: admin.email,
-              role: admin.idAdminRole
+              role
             },
           };
+          console.log('RESPONSE:', response);
+          
           return response;
         } else {
           throw new HttpException(
