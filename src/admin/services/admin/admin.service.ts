@@ -66,6 +66,7 @@ export class AdminService {
             accessToken: token,
             admin: {
               email: admin.email,
+              role: admin.idAdminRole
             },
           };
           return response;
