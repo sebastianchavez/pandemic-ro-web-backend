@@ -19,7 +19,7 @@ export class Vote {
 
     @ManyToOne((type) => Question, (u) => u.idQuestion)
     @JoinColumn({ name: 'idQuestion' })
-    idQuestion: number;
+    idQuestion: number | any;
 
     @CreateDateColumn({
         type: 'timestamp',

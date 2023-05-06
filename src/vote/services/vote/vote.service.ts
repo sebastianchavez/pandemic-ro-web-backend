@@ -181,9 +181,9 @@ export class VoteService {
 
             const now = new Date()
 
-            const votes = await this.voteRepository.findBy({idUser})
+            const votes = await this.voteRepository.find({where:{idUser}, relations: {idQuestion: true}})
 
-            const idsQuestions = votes.map(x => x.idQuestion)
+            const idsQuestions = votes.map(x => x.idQuestion.idQuestion)
 
             const question = await this.questionRepository.findOne({ 
                 order: { startDate: 'ASC' }, where: {
@@ -192,6 +192,7 @@ export class VoteService {
                     idQuestion: Not(In(idsQuestions))
                 },
             })
+            
             if(question){
                 const alternatives = await this.alternativeRepository.findBy({
                     idQuestion: question.idQuestion
