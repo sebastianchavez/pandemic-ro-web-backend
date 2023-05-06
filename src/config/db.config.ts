@@ -15,6 +15,7 @@ export const db: TypeOrmModuleOptions = {
   ],
   autoLoadEntities: true,
   synchronize: true,
+  // logging: true
 };
 
 // import { DataSource } from 'typeorm';

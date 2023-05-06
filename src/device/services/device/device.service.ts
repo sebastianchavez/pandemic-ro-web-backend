@@ -29,6 +29,7 @@ export class DeviceService {
                 device.socketId = socketId;
                 device.is_connected = true;
                 await this.deviceRepository.save(device)
+                return device
             } else {
                 const newDevice = new Device();
                 newDevice.enabled = true;
@@ -40,10 +41,7 @@ export class DeviceService {
                 newDevice.is_connected = true;
                 newDevice.socketId = socketId;
                 await this.deviceRepository.insert(newDevice)
-            }
-
-            return {
-                message: 'Ok'
+                return newDevice
             }
         } catch (error) {
             throw error    
@@ -65,11 +63,21 @@ export class DeviceService {
             await this.deviceRepository.save(device)
 
 
-            return {
-                message: 'Ok'
-            }
+            return device
         } catch (error) {
             throw error    
+        }
+    }
+
+    async getDevices(query){
+        try {
+            const devices = await this.deviceRepository.find({})
+            if(!devices){
+                throw new HttpException('No hay dispositivos', HttpStatus.BAD_REQUEST)
+            }
+            return devices
+        } catch (error) {
+            throw error
         }
     }
 }

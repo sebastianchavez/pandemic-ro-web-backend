@@ -10,10 +10,11 @@ import { Account } from './entities/Account.entity';
 import { User } from './entities/User.entity';
 import { UsersController } from './users.controller';
 import { UserService } from './services/user/user.service';
+import { Otp } from './entities/otp.entity';
 
 @Module({
     imports: [
-      TypeOrmModule.forFeature([User, Account]),
+      TypeOrmModule.forFeature([User, Account, Otp]),
       HttpModule,
       TerminusModule,
     ],

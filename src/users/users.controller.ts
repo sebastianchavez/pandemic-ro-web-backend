@@ -4,6 +4,7 @@ import { LoginDto } from './dtos/login.dto';
 import { RegisterAccountDto } from './dtos/register-account.dto';
 import { RegisterDto } from './dtos/register.dto';
 import { UserService } from './services/user/user.service';
+import { VerificateDto } from './dtos/verificate.dto';
 
 @Controller('api/users')
 export class UsersController {
@@ -103,6 +104,27 @@ export class UsersController {
   getIpAddressFromRequest(@Req() request: any): string {
     return request.ipInfo;
   }
+
+  @Put('send-verificate')
+  async sendVetificateUser(@Req() req: any, @Res() res: Response){
+   try {
+     const response = await this.userService.sendVerificateUser(req)
+      res.status(HttpStatus.OK).send(response);
+    } catch (error) {
+     throw error
+   }
+  }
+
+   @Put('verificate')
+   async vetificateUser(@Req() req: any, @Body() body: VerificateDto, @Res() res: Response){
+    try {
+      const { code } = body
+      const response = await this.userService.verificateUser(req, code)
+      res.status(HttpStatus.OK).send(response);
+    } catch (error) {
+      throw error
+    }
+   }
 
   // se usó para normalizar tablas
   // @Put('normalize-entities')

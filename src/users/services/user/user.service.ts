@@ -13,6 +13,9 @@ import { Account } from '../../entities/Account.entity';
 import { generatePassword } from '../../../common/utils/helpers';
 import { CpanelService } from '../../../common/services/cpanel/cpanel.service';
 import { IRequestRegisterLogin } from '../../../common/interfaces/request-register-login.interface';
+import { EmailService } from 'src/common/services/email/email.service';
+import { IRequestSendEmail } from 'src/common/interfaces/request-send-email.interface';
+import { Otp } from 'src/users/entities/otp.entity';
 
 @Injectable()
 export class UserService {
@@ -21,8 +24,11 @@ export class UserService {
     private userRepository: Repository<User>,
     @InjectRepository(Account)
     private accountRepository: Repository<Account>,
+    @InjectRepository(Otp)
+    private otpRepository: Repository<Otp>,
     private tokenService: TokenService,
     private cpanelService: CpanelService,
+    private emailService: EmailService
   ) {}
 
   async register(params: RegisterDto) {
@@ -155,6 +161,59 @@ export class UserService {
         // this.emailService.sendEmailWelcomeUser({});
       } else {
         throw new HttpException('Usuario inválido', HttpStatus.BAD_REQUEST);
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async sendVerificateUser(req: any){
+    try {
+      const {
+        user: { email, idUser },
+      } = req;
+
+      const otp = generatePassword(6)
+      
+      const requestMessage: IRequestSendEmail = {
+        sendTo: email,
+        template: 'verified-email',
+        subjectEmail: 'Verificación de usuario',
+        code: otp,
+        from: 'no-responder@pandemic-ro.com'
+      }
+
+      await this.otpRepository.delete({idUser})
+
+      const newOtp = new Otp();
+      newOtp.idUser = idUser;
+      newOtp.otp = otp;
+      
+      await this.otpRepository.insert(newOtp)
+      const response = await this.emailService.sendEmail(requestMessage)
+
+      return response.data
+    } catch (error) {
+      console.log('ERROR:', error);
+      throw error;
+    }
+  }
+
+  async verificateUser(req: any, code: string){
+    try {
+      const {
+        user: { email, idUser },
+      } = req;
+      const otp = await this.otpRepository.findOneBy({idUser})
+      if(otp.otp == code){
+        const user = await this.userRepository.findOneBy({ idUser })
+        user.isVerified = true
+        await this.userRepository.save(user)
+        return {
+          message: 'Usuario verificado'
+        }
+      } else {
+        throw new HttpException('No coincide código', HttpStatus.BAD_REQUEST)
       }
     } catch (error) {
       throw error;

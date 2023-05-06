@@ -1,4 +1,4 @@
-import { Controller, Put, Body, Res } from '@nestjs/common';
+import { Controller, Put, Body, Res, Get, Query } from '@nestjs/common';
 import { HttpStatus } from '@nestjs/common/enums';
 import { Response } from 'express';
 import { RequestDisconnectDeviceDto } from './dtos/request-disconnect-device.dto';
@@ -27,6 +27,16 @@ export class DeviceController {
         try {
             const response = await this.deviceService.disconnectDevice(body)
             res.status(HttpStatus.OK).send(response)
+        } catch (error) {
+            throw error
+        }
+    }
+
+    @Get('get-devices')
+    async getDevices(@Query() query, @Res() res: Response){
+        try {
+            const response = await this.deviceService.getDevices(query)
+            res.status(HttpStatus.OK).send(response)            
         } catch (error) {
             throw error
         }

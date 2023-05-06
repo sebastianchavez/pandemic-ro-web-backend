@@ -20,6 +20,9 @@ export class User {
   @Column()
   state: string;
 
+  @Column()
+  isVerified: boolean;
+
   @CreateDateColumn({
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
