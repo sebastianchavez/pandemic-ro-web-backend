@@ -46,6 +46,7 @@ export class UserService {
       user.email = params.email;
       user.password = bcrypt.hashSync(params.password, bcrypt.genSaltSync(10));
       user.state = USER_STATES.ENABLED;
+      user.isVerified = false;
       const request: IRequestRegisterAccount = {
         email: user.email,
         last_ip: params.ip,
